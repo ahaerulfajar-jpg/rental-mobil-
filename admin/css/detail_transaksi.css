@@ -1,0 +1,141 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f5f7fb;
+    margin: 0;
+    padding: 40px;
+}
+
+.detail-container {
+    max-width: 1350px;
+    margin: auto;
+}
+
+.card {
+    display: flex;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    gap: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.left {
+    flex: 1.2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.car-image {
+    width: 70%;
+    border-radius: 16px;
+}
+
+.right {
+    flex: 1;
+}
+
+.right h1 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.right h3 {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.spec-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.spec-box {
+    background: #eef2ff;
+    padding: 12px 14px;
+    border-radius: 14px;
+}
+
+.spec-box.full {
+    grid-column: span 2;
+}
+
+.spec-box i {
+    color: #4e5cf2;
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+
+.label {
+    margin: 0;
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+.value {
+    margin: 3px 0 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.price {
+    font-size: 18px;
+    color: #2b49ff;
+}
+
+.status.menunggu {
+    color: #cd9600;
+}
+
+.status.disetujui, .status.selesai {
+    color: #2e8b41;
+}
+
+.status.ditolak {
+    color: #d32f2f;
+}
+
+/* BUTTONS */
+.button-row {
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+}
+
+.btn.approve {
+    background: #4caf50;
+    color: white;
+}
+
+.btn.delete {
+    background: #f44336;
+    color: white;
+}
+
+.btn.back {
+    background: #e0e3ec;
+    color: #222;
+}
+
+.btn.complete {
+    background-color: #28a745;
+    color: white;
+}
+.btn.complete:hover {
+    background-color: #218838;
+}

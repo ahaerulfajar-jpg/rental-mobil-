@@ -1,0 +1,150 @@
+body {
+    background: #eef1f6;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+.page-wrapper {
+    display: flex;
+    gap: 30px;
+    max-width: 1300px;
+    margin: auto;
+    padding: 40px;
+}
+
+.card-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #fff;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+    gap: 30px;
+}
+
+/* BAGIAN GAMBAR (KIRI) */
+.card-box {
+    padding: 20px;
+    padding-right: 10px;
+    margin-bottom: 20px;
+}
+
+/* Gambar Mobil */
+.car-image {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+/* Judul Mobil */
+.car-info {
+    margin-bottom: 20px;
+}
+
+.car-name {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.car-price {
+    color: #2d6cfb;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+/* Form User */
+.user-form .input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+
+.right-box {
+    flex: 1;
+    padding: 35px;
+    padding-left: 10px;
+}
+
+.car-name {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.car-price {
+    color: #4e73df;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+/* INPUT */
+.input-group {
+    margin-bottom: 18px;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+}
+
+input, select {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: 2px solid #d8dce6;
+    background: #f7f8fc;
+    transition: .3s;
+}
+
+.input-group .alamat_jemput  {
+     width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: 2px solid #d8dce6;
+    font-size: 15px;
+    resize: vertical;
+}
+
+
+input:focus, select:focus, textarea:focus {
+    border-color: #4e73df;
+    background: white;
+}
+
+/* BUTTON */
+.btn-submit {
+    width: 100%;
+    padding: 15px;
+    background: #4e73df;
+    border: none;
+    color: white;
+    font-size: 17px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn-submit:hover {
+    background: #3c5dc6;
+}
+
+@media(max-width: 900px){
+    .card-wrapper {
+        grid-template-columns: 1fr;
+    }
+}

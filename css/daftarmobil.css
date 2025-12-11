@@ -1,0 +1,476 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+}
+
+/* HEADER */
+.header2 {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease; /* Tambahkan transisi umum jika diperlukan */
+}
+
+.top-bar2 {
+  background: #ff0000;
+  color: #fff;
+  padding: 8px 0;
+  font-size: 14px;
+  transition: transform 0.3s ease; /* Transisi untuk slide up */
+}
+
+.top-bar2 .container {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header2 .navbar2 {
+  background: transparent; 
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar2 .container {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center; 
+}
+
+.logo img {
+  height: 75px; 
+  width: auto;
+  max-height: 50px; 
+  transition: filter 0.3s ease; 
+  filter: brightness(1.2); 
+}
+
+.nav-links2 {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links2 a {
+  text-decoration: none;
+  color: #333; 
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links2 a:hover {
+  color: #007BFF; 
+}
+
+.header2.scrolled {
+  background: #fff; 
+}
+
+.header2.scrolled .navbar2 {
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2); 
+}
+
+.header2.scrolled .logo {
+  color: #333; 
+}
+
+.header2.scrolled .nav-links2 a {
+  color: #333; 
+}
+
+.header2.scrolled .nav-links2 a:hover {
+  color: #007BFF; 
+}
+
+/* LOGIN BUTTON */
+.btn-login {
+  padding: 8px 16px;
+  background: #002b6b;
+  color: white !important;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.btn-login:hover {
+  background: #003b9b;
+}
+
+/* User menu dan dropdown */
+.user-menu {
+  position: relative;
+}
+.user-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.user-btn:hover {
+  color: #007bff;
+}
+/* Dropdown menu */
+.dropdown-menu {
+  display: none; /* Sembunyikan default */
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  min-width: 150px;
+  z-index: 1000;
+}
+.dropdown-menu.show {
+  display: block; /* Tampilkan saat class 'show' ada */
+}
+.dropdown-menu li {
+  list-style: none;
+}
+
+.dropdown-menu.show {
+  display: block; /* Tampilkan saat class 'show' ada */
+}
+.dropdown-menu li {
+  list-style: none;
+}
+.dropdown-menu a {
+  display: block;
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+.dropdown-menu a:hover {
+  background-color: #f8f9fa;
+}
+
+.profile-dropdown {
+  width: 230px;
+  padding: 15px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+/* Profil header */
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Foto profil */
+.profile-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Nama */
+.profile-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-name {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Email */
+.profile-email {
+  font-size: 13px;
+  color: #666;
+  margin-top: 2px;
+}
+
+
+/* Container utama */
+.section-mobil {
+  padding: 50px 0;
+  background: #fafafa;
+}
+
+.container-mobil {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Judul */
+.judul-mobil {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+/* Grid mobil */
+.mobil-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 35px;
+}
+
+/* Card mobil */
+.mobil-card {
+  position: relative;
+  background: #fff;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  transition: 0.3s ease;
+  overflow: hidden;
+  text-align: center;
+}
+
+.mobil-card:hover {
+  transform: translateY(-7px);
+  border: 1px solid #ff7a00;
+}
+
+.status-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  color: white;
+}
+
+.status-badge.tersedia {
+  background: #28a745; /* Hijau */
+}
+
+.status-badge.tidak {
+  background: #dc3545; /* Merah */
+}
+
+/* Disable button jika tidak tersedia */
+.btn-disabled {
+  background: #b5b5b5 !important;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* Gambar mobil */
+.mobil-img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  margin-bottom: 20px;
+}
+
+.mobil-harga {
+  font-size: 18px;
+  font-weight: bold;
+  color: red;
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+
+/* Nama mobil */
+.mobil-nama {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #222;
+}
+
+/* Spesifikasi mobil */
+.mobil-spec {
+  text-align: left;
+  margin: 0 auto 20px;
+  max-width: 240px;
+}
+
+.mobil-spec p {
+  margin: 8px 0;
+  font-size: 15px;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobil-spec i {
+  font-size: 18px;
+  color: #395b9c;
+}
+
+/* Tombol */
+.mobil-btn {
+  display: inline-block;
+  padding: 12px 25px;
+  background: #007BFF;
+  color: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.mobil-btn:hover {
+  background: red;
+}
+
+/* =============== RESPONSIVE =============== */
+@media (max-width: 768px) {
+  .top-bar .container,
+  .navbar .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .main-content {
+    padding-top: 160px; 
+  }
+}
+
+.footer {
+  background-color: #052a6e;
+  color: #fff;
+  padding: 50px 0 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  width: 90%;
+  margin: auto;
+}
+
+.footer h3 {
+  color: #fff;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.footer p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px; /* kurangi jarak antar elemen */
+}
+
+.footer-logo {
+  width: 180px;
+  margin-bottom: 4px; /* jarak kecil antara logo dan teks */
+  filter: brightness(0) invert(1);
+}
+
+.footer-col p {
+  margin: 0; /* hilangkan margin default paragraf */
+  line-height: 1.4;
+}
+
+.footer .line {
+  width: 60%;
+  height: 2px;
+  background-color: #2e5aa3;
+  margin-bottom: 10px;
+}
+
+.profile-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+.profile-link i {
+  margin-right: 5px;
+}
+
+.bank-logo {
+  width: 100px;
+  margin: 10px 0;
+}
+
+.footer-col i {
+  margin-right: 8px;
+  color: #c9d6ff;
+}
+
+.post-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.post-item img {
+  width: 60px;
+  height: 40px;
+  object-fit: cover;
+  margin-right: 10px;
+  border-radius: 4px;
+}
+.post-item a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+}
+.post-item a:hover {
+  text-decoration: underline;
+}
+
+.counter {
+  margin-top: 10px;
+}
+
+.footer-bottom {
+  border-top: 1px solid #1a3d80;
+  margin-top: 30px;
+  padding-top: 15px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.footer-bottom a {
+  color: #c0d9ff;
+  text-decoration: none;
+}
+.footer-bottom a:hover {
+  text-decoration: underline;
+}
