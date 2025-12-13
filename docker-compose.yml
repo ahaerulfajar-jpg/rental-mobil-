@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: rental-mobil
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+      - DB_HOST=db
+      - DB_USER=rentuser
+      - DB_PASS=rentpass
+      - DB_NAME=rent_car
+    networks:
+      - rental-network
+
+  db:
+    image: mysql:8.0
+    container_name: rental-mobil-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: rent_car
+      MYSQL_USER: rentuser
+      MYSQL_PASSWORD: rentpass
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./rent_car.sql:/docker-entrypoint-initdb.d/rent_car.sql
+    networks:
+      - rental-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db_data:
+
+networks:
+  rental-network:
+    driver: bridge
+

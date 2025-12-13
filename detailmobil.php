@@ -1,5 +1,5 @@
 <?php
-include('../project/app/config/database.php');
+include('app/config/database.php');
 $id = $_GET['id'];
 
 $data = $conn->query("SELECT * FROM mobil WHERE id=$id")->fetch_assoc();
@@ -246,5 +246,7 @@ if (isset($_SESSION['pelanggan'])) {
   </footer>
 
   <script src="js/dashboard.js"></script>
+  
+  <?php include 'includes/chat_button.php'; ?>
 </body>
 </html>
