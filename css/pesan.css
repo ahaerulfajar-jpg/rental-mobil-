@@ -111,14 +111,6 @@ input, select {
     transition: .3s;
 }
 
-.input-group .alamat_jemput  {
-     width: 100%;
-    padding: 14px;
-    border-radius: 10px;
-    border: 2px solid #d8dce6;
-    font-size: 15px;
-    resize: vertical;
-}
 
 
 input:focus, select:focus, textarea:focus {
@@ -141,6 +133,111 @@ input:focus, select:focus, textarea:focus {
 
 .btn-submit:hover {
     background: #3c5dc6;
+}
+
+/* Styling untuk Google Places Autocomplete Dropdown */
+.pac-container {
+    border-radius: 10px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    border: none !important;
+    margin-top: 5px !important;
+    font-family: 'Poppins', sans-serif !important;
+    z-index: 9999 !important;
+}
+
+.pac-item {
+    padding: 12px 15px !important;
+    cursor: pointer !important;
+    border-top: 1px solid #f0f0f0 !important;
+    font-size: 14px !important;
+    transition: background-color 0.2s !important;
+}
+
+.pac-item:first-child {
+    border-top: none !important;
+}
+
+.pac-item:hover {
+    background-color: #f5f7fa !important;
+}
+
+.pac-item-selected {
+    background-color: #e8f0fe !important;
+}
+
+.pac-icon {
+    margin-right: 10px !important;
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.pac-matched {
+    font-weight: 600 !important;
+    color: #4e73df !important;
+}
+
+.pac-item-query {
+    color: #333 !important;
+    font-size: 14px !important;
+}
+
+/* Styling khusus untuk input alamat */
+.address-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.address-input {
+    width: 100%;
+    padding: 14px 45px 14px 14px;
+    border-radius: 10px;
+    border: 2px solid #d8dce6;
+    background: #f7f8fc;
+    font-size: 15px;
+    transition: .3s;
+    box-sizing: border-box;
+}
+
+.address-input:focus {
+    border-color: #4e73df;
+    background: white;
+    outline: none;
+}
+
+.input-group .location-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #4e73df;
+    pointer-events: none;
+    font-size: 18px;
+    z-index: 1;
+}
+
+.address-hint {
+    color: #666;
+    font-size: 12px;
+    margin-top: 6px;
+    display: block;
+    line-height: 1.4;
+}
+
+.address-hint i {
+    margin-right: 5px;
+    color: #4e73df;
+    font-size: 11px;
+}
+
+/* Loading indicator untuk autocomplete */
+.autocomplete-loading {
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #4e73df;
+    margin-top: 12px;
 }
 
 @media(max-width: 900px){

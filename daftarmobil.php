@@ -1,5 +1,5 @@
 <?php
-include('../project/app/config/database.php');
+include('app/config/database.php');
 $result = $conn->query("SELECT * FROM mobil ORDER BY id DESC");
 
 if (session_status() == PHP_SESSION_NONE) {
@@ -193,5 +193,7 @@ if (isset($_SESSION['pelanggan'])) {
   </footer>
 
     <script src="js/dashboard.js"></script>
+    
+    <?php include 'includes/chat_button.php'; ?>
 </body>
 </html>
