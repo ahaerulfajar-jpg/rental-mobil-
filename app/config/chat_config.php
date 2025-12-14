@@ -4,7 +4,11 @@
 // You can get this from your n8n workflow webhook node
 
 // n8n Webhook URL - Replace with your actual webhook URL
-define('N8N_WEBHOOK_URL', getenv('N8N_WEBHOOK_URL') ?: 'https://your-n8n-instance.com/webhook/your-webhook-id');
+// For Docker setup, n8n runs on http://localhost:5678
+// Format: http://localhost:5678/webhook/{your-webhook-id}
+// You can also set it via environment variable: N8N_WEBHOOK_URL
+$n8nWebhookUrl = getenv('N8N_WEBHOOK_URL') ?: 'http://localhost:5678/webhook/chat';
+define('N8N_WEBHOOK_URL', $n8nWebhookUrl);
 
 // Timeout settings (in seconds)
 define('CHAT_TIMEOUT', 30);

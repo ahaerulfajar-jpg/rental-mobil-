@@ -30,7 +30,50 @@ $sopir = $conn->query("SELECT * FROM sopir WHERE status='Tersedia'");
     <title>Form Pemesanan</title>
     <link rel="stylesheet" href="css/pesan.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=<?= GOOGLE_MAPS_API_KEY; ?>&libraries=places&language=id&region=ID"></script>
+    <script>
+        // Error handler untuk Google Maps API (harus didefinisikan sebelum script dimuat)
+        window.gm_authFailure = function() {
+            console.error('Google Maps API: Authentication failed - ApiTargetBlockedMapError');
+            showMapError('API key tidak valid atau diblokir. Periksa konfigurasi API key di Google Cloud Console.');
+        };
+
+        // Global error handler
+        window.addEventListener('error', function(e) {
+            if (e.message && e.message.includes('ApiTargetBlockedMapError')) {
+                showMapError('API key diblokir. Periksa HTTP referrer restrictions di Google Cloud Console.');
+            }
+        });
+
+        // Callback untuk inisialisasi Google Maps
+        window.initGoogleMaps = function() {
+            if (typeof google !== 'undefined' && google.maps && google.maps.places) {
+                console.log('Google Maps API loaded successfully');
+                // Autocomplete akan diinisialisasi oleh form.js
+            } else {
+                console.error('Google Maps API failed to load');
+                showMapError('Gagal memuat Google Maps API. Periksa koneksi internet atau konfigurasi API key.');
+            }
+        };
+
+        // Fungsi untuk menampilkan error
+        function showMapError(message) {
+            const input = document.getElementById('alamat_jemput');
+            if (input) {
+                const parent = input.closest('.input-group');
+                let errorDiv = parent.querySelector('.map-error-message');
+                
+                if (!errorDiv) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.className = 'map-error-message';
+                    parent.appendChild(errorDiv);
+                }
+                
+                errorDiv.innerHTML = '<i class="fa-solid fa-exclamation-triangle"></i> ' + message;
+                errorDiv.style.cssText = 'color: #d32f2f; font-size: 12px; margin-top: 5px; padding: 8px; background: #ffebee; border-radius: 5px; border-left: 3px solid #d32f2f; display: block;';
+            }
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<?= GOOGLE_MAPS_API_KEY; ?>&libraries=places&language=id&region=ID&callback=initGoogleMaps"></script>
 </head>
 
 <body>

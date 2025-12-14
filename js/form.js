@@ -104,15 +104,67 @@ function initAutocomplete() {
 }
 
 // Inisialisasi saat halaman dimuat
-if (typeof google !== 'undefined' && google.maps && google.maps.places) {
-    initAutocomplete();
-} else {
-    // Tunggu sampai Google Maps API selesai dimuat
-    window.addEventListener('load', function() {
-        if (typeof google !== 'undefined' && google.maps && google.maps.places) {
+function initializeAutocomplete() {
+    if (typeof google !== 'undefined' && google.maps && google.maps.places) {
+        try {
             initAutocomplete();
-        } else {
-            console.error('Google Maps API belum dimuat');
+        } catch (error) {
+            console.error('Error initializing autocomplete:', error);
+            showAutocompleteError('Gagal memuat fitur autocomplete. Silakan ketik alamat secara manual.');
         }
-    });
+    } else {
+        console.warn('Google Maps API belum tersedia, menunggu...');
+        // Tunggu maksimal 5 detik
+        let attempts = 0;
+        const maxAttempts = 10;
+        const checkInterval = setInterval(function() {
+            attempts++;
+            if (typeof google !== 'undefined' && google.maps && google.maps.places) {
+                clearInterval(checkInterval);
+                try {
+                    initAutocomplete();
+                } catch (error) {
+                    console.error('Error initializing autocomplete:', error);
+                    showAutocompleteError('Gagal memuat fitur autocomplete. Silakan ketik alamat secara manual.');
+                }
+            } else if (attempts >= maxAttempts) {
+                clearInterval(checkInterval);
+                console.error('Google Maps API gagal dimuat setelah beberapa kali percobaan');
+                showAutocompleteError('Fitur autocomplete tidak tersedia. Silakan ketik alamat secara manual.');
+            }
+        }, 500);
+    }
+}
+
+// Fungsi untuk menampilkan error autocomplete
+function showAutocompleteError(message) {
+    const input = document.getElementById('alamat_jemput');
+    if (input) {
+        const parent = input.closest('.input-group');
+        const existingError = parent.querySelector('.autocomplete-error');
+        
+        if (!existingError) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'autocomplete-error';
+            errorDiv.innerHTML = '<i class="fa-solid fa-info-circle"></i> ' + message;
+            errorDiv.style.cssText = 'color: #ff9800; font-size: 12px; margin-top: 5px; padding: 8px; background: #fff3e0; border-radius: 5px; border-left: 3px solid #ff9800;';
+            parent.appendChild(errorDiv);
+        }
+    }
+}
+
+// Inisialisasi saat DOM ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeAutocomplete);
+} else {
+    // DOM sudah siap, tapi tunggu Google Maps API
+    if (typeof google !== 'undefined' && google.maps && google.maps.places) {
+        initializeAutocomplete();
+    } else {
+        // Jika callback sudah dipanggil, langsung initialize
+        // Jika belum, tunggu callback
+        window.initGoogleMaps = function() {
+            initializeAutocomplete();
+        };
+    }
 }
