@@ -1,5 +1,6 @@
-# POST http://localhost:5678/webhook-test/chat
-POST http://localhost:5678/webhook/chat
+POST http://localhost:5678/webhook-test/chat
+# POST http://localhost:5678/webhook/chat
+# POST http://n8n:5678/webhook/chat
 Accept: application/json
 Content-Type: application/json
 

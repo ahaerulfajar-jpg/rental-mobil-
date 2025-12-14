@@ -76,6 +76,25 @@ services:
       retries: 3
       start_period: 40s
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: rental-mobil-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
+      - PMA_USER=${PMA_USER:-root}
+      - PMA_PASSWORD=${PMA_PASSWORD:-rootpassword}
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - UPLOAD_LIMIT=300M
+    networks:
+      - rental-network
+    depends_on:
+      db:
+        condition: service_healthy
+
 volumes:
   db_data:
   n8n_data:

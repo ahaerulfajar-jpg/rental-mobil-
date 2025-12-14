@@ -1,4 +1,9 @@
 <?php
+// Start session before any output
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
@@ -37,7 +42,6 @@ if (!isset($data['message']) || empty(trim($data['message']))) {
 }
 
 // Get user session info if available
-session_start();
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 $user_name = isset($_SESSION['nama']) ? $_SESSION['nama'] : 'Guest';
 $user_email = isset($_SESSION['email']) ? $_SESSION['email'] : null;
