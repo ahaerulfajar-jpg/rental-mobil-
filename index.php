@@ -1,9 +1,13 @@
 <?php
+include('app/config/database.php');
+$result = $conn->query("SELECT * FROM mobil ORDER BY id DESC LIMIT 8");
+
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
 ?>
 
 <!DOCTYPE html>
@@ -253,77 +257,31 @@ if (isset($_SESSION['pelanggan'])) {
   </section>
   
 
-  <!-- Layanan Kami -->
-  <section id="layanan" class="layanan">
+<section id="layanan" class="layanan">
     <h2> <span class="highlight">Layanan</span> Kami</h2>
     <p class="subtitle">Daftar Mobil & Bus</p>
     <div class="grid">
-      <div class="grid-mobil">
-        <div class="card-mobil">
-            <img src="img/veloz.png" alt="Avanza">
-            <div class="info">
-                <h3 class="nama-mobil">All New Avanza</h3>
-                <a href="#" class="btn-order">Pesan Sekarang</a>
-            </div>
+        <div class="grid-mobil">
+            <?php while ($row = $result->fetch_assoc()) { ?>
+                <div class="card-mobil">
+                    <div class="img-wrapper">
+                        <img src="img/<?= htmlspecialchars($row['gambar_mobil']); ?>" alt="<?= htmlspecialchars($row['nama_mobil']); ?>">
+                        <span class="badge"><?= htmlspecialchars($row['status']); ?></span>
+                    </div>
+                    <div class="info">
+                        <h3 class="nama-mobil"><?= htmlspecialchars($row['nama_mobil']); ?></h3>
+                        <?php if ($row['status'] === 'Tersedia') { ?>
+                            <a href="detailmobil.php?id=<?= $row['id']; ?>" class="btn-order">Pesan Sekarang</a>
+                        <?php } else { ?>
+                            <a href="#" class="btn-order disabled" onclick="return false;">Tidak Tersedia</a>
+                        <?php } ?>
+                    </div>
+                </div>
+            <?php } ?>
         </div>
-
-        <div class="card-mobil">
-            <img src="img/avanza.png" alt="avanza2019">
-            <div class="info">
-                <h3 class="nama-mobil">Avanza</h3>
-                <a href="#" class="btn-order">Pesan Sekarang</a>
-          </div>
-          </div>
-
-        <div class="card-mobil">
-            <img src="img/innova reborn.jpg" alt="reborn">
-            <div class="info">
-                <h3 class="nama-mobil">Innova Reborn</h3>
-                <a href="#" class="btn-order">Pesan Sekarang</a>
-            </div>
-        </div>
-
-        <div class="card-mobil">
-            <img src="img/pajero.jpg" alt="Pajero">
-            <div class="info">
-                <h3 class="nama-mobil">Pajero</h3>
-                <a href="#" class="btn-order">Pesan Sekarang</a>
-            </div>
-        </div>
-
-        <div class="card-mobil">
-            <img src="img/x" alt="Xpander">
-            <div class="info">
-                <h3 class="nama-mobil">Xpander</h3>
-                <a href="#" class="btn-order">Pesan Sekarang</a>
-          </div>
-        </div>
-
-        <div class="card-mobil">
-          <img src="img/alphard.png" alt="alphard">
-          <div class="info">
-              <h3 class="nama-mobil">Alphard</h3>
-              <a href="#" class="btn-order">Pesan Sekarang</a>
-        </div>
-      </div>
-
-      <div class="card-mobil">
-        <img src="img/innova zenix.jpg" alt="zenix">
-        <div class="info">
-            <h3 class="nama-mobil">Innova Zenix</h3>
-            <a href="daftarmobil/zenix.html" class="btn-order">Pesan Sekarang</a>
-      </div>
     </div>
+</section>
 
-    <div class="card-mobil">
-      <img src="img/fortuner.png" alt="fortuner">
-      <div class="info">
-          <h3 class="nama-mobil">Fortuner</h3>
-          <a href="#" class="btn-order">Pesan Sekarang</a>
-    </div>
-    </div>
-    </div>
-  </section>
 
   <!--About-->
   <section class="about">

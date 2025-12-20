@@ -12,4 +12,4 @@ move_uploaded_file($_FILES['foto']['tmp_name'], $target);
 $conn->query("INSERT INTO sopir (nama, telepon, harga_per_hari, foto)
               VALUES ('$nama', '$telepon', '$harga', '$fotoName')");
 
-header("Location: ../../../../admin/sopir.php");
+header("Location: .php");

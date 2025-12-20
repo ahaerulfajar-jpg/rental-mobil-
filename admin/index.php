@@ -1,4 +1,9 @@
-<?php include('../app/config/database.php'); ?>
+<?php
+session_start(); // Pastikan session dimulai
+include('../app/config/database.php'); // Sertakan koneksi database jika diperlukan
+
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -37,8 +42,16 @@
           <header class="header">
             <h1>Dashboard Admin</h1>
             <div class="admin-info">
-              <i class="fa-solid fa-user-circle"></i>
-              <span>Admin</span>
+              <?php if (isset($_SESSION['admin_username'])): ?>
+                <!-- Jika sudah login, tampilkan username -->
+                <i class="fa-solid fa-user-circle"></i>
+                <span><?= htmlspecialchars($_SESSION['admin_username']); ?></span>
+              <?php else: ?>
+                <!-- Jika belum login, tampilkan tombol login -->
+                <a href="login.php" class="btn-login">
+                  <i class="fa-solid fa-sign-in-alt"></i> Login
+                </a>
+              <?php endif; ?>
             </div>
           </header>
     

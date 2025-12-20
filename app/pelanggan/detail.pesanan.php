@@ -17,7 +17,7 @@ $query = "
         t.*, 
         p.nama AS nama_pelanggan, p.email AS email_pelanggan, 
         m.nama_mobil, m.gambar_mobil, 
-        s.nama AS nama_sopir
+        s.nama AS nama_sopir, s.telepon AS telepon_sopir  -- Tambahkan telepon sopir
     FROM transaksi t
     LEFT JOIN pelanggan p ON t.pelanggan_id = p.id  -- Ganti jika kolom berbeda
     LEFT JOIN mobil m ON t.mobil_id = m.id          -- Ganti jika kolom berbeda
@@ -35,7 +35,6 @@ if (mysqli_num_rows($result) == 0) {
 }
 
 $data = mysqli_fetch_assoc($result);
-
 
 $mobil = [
     'nama_mobil' => $data['nama_mobil'] ?? 'Tidak diketahui',
@@ -59,7 +58,14 @@ $transaksi = [
     'status' => $data['status'] ?? 'pending'
 ];
 
-$sopir = $data['nama_sopir'] ? ['nama' => $data['nama_sopir']] : null;
+// Perbaiki array sopir: Sertakan nama dan telepon
+$sopir = null;
+if ($data['nama_sopir'] && $data['telepon_sopir']) {
+    $sopir = [
+        'nama' => $data['nama_sopir'],
+        'telepon' => $data['telepon_sopir']
+    ];
+}
 
 mysqli_close($conn);
 ?>
@@ -184,11 +190,16 @@ if (isset($_SESSION['pelanggan'])) {
                 </div>
 
                 <!-- Detail Sopir -->
-                <div class="spec-box">
+                <div class="spec-box full">
                     <i class="fa-solid fa-user-tie"></i>
                     <p class="label">Detail Sopir</p>
                     <p class="value">
-                        <?= $sopir ? htmlspecialchars($sopir['nama']) : "-"; ?>
+                        <?php if ($transaksi['pakai_sopir'] === 'ya' && $sopir): ?>
+                            Nama: <?= htmlspecialchars($sopir['nama']); ?><br>
+                            Telepon: <?= htmlspecialchars($sopir['telepon']); ?>
+                        <?php else: ?>
+                            -
+                        <?php endif; ?>
                     </p>
                 </div>
 
@@ -246,7 +257,7 @@ if (isset($_SESSION['pelanggan'])) {
                         <i class="fa-solid fa-check-circle"></i> Mark as Complete
                     </a>
                 <?php endif; ?>
-                <a href="list.transaksi.php" class="btn back">
+                <a href="../../pesanan.php" class="btn back">
                     <i class="fa-solid fa-arrow-left"></i> Back
                 </a>
             </div>

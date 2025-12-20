@@ -1,5 +1,13 @@
 <?php
+session_start();
 include('../app/config/database.php');
+
+// Pengecekan login
+if (!isset($_SESSION['admin_username'])) {
+    header("Location: login.php");
+    exit;
+}
+
 $result = $conn->query("SELECT * FROM mobil ORDER BY id DESC");
 ?>
 
@@ -23,7 +31,7 @@ $result = $conn->query("SELECT * FROM mobil ORDER BY id DESC");
 </div>
 
 <ul class="menu">
-    <li><a href="dashboard.php"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+    <li><a href="index.php"><i class="fa-solid fa-house"></i> Dashboard</a></li>
     <li class="active"><a href="datamobil.php"><i class="fa-solid fa-car"></i> Daftar Mobil</a></li>
     <li><a href="transaksi.php"><i class="fa-solid fa-handshake"></i> Transaksi</a></li>
     <li><a href="sopir.php"><i class="fa-solid fa-id-card"></i> Sopir</a></li>

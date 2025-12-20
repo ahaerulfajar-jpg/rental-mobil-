@@ -2,30 +2,43 @@
 session_start();
 include('../app/config/database.php');
 
-if (isset($_SESSION['admin'])) {
-    header("Location: dashboard.php");
+// Jika admin sudah login, redirect ke dashboard
+if (isset($_SESSION['admin_username'])) {
+    header("Location:index.php");
     exit;
 }
 
+// Jika form dikirim
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
+    $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    $query = "SELECT * FROM users WHERE email = '$email' AND role = 'admin'";
-    $result = $conn->query($query);
-
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-
-        if (password_verify($password, $user['password'])) {
-            $_SESSION['admin'] = $user['username'];
-            header("Location: dashboard.php");
-            exit;
-        } else {
-            $error = "Password salah!";
-        }
+    // Validasi input dasar
+    if (empty($email) || empty($password)) {
+        $error = "Email dan password harus diisi!";
     } else {
-        $error = "Email tidak ditemukan atau bukan admin!";
+        // Gunakan prepared statement untuk keamanan
+        $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE email = ? AND role = 'admin'");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+
+            // Verifikasi password
+            if (password_verify($password, $user['password'])) {
+                // Simpan username ke session (konsisten dengan dashboard)
+                $_SESSION['admin_username'] = $user['username'];
+                header("Location: index.php");
+                exit;
+            } else {
+                $error = "Password salah!";
+            }
+        } else {
+            $error = "Email tidak ditemukan atau bukan admin!";
+        }
+        $stmt->close();
     }
 }
 ?>
@@ -50,13 +63,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p class="subtitle">Masukkan email dan password untuk melanjutkan</p>
 
         <?php if (!empty($error)): ?>
-            <div class="alert alert-danger"><?= $error ?></div>
+            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
 
         <form method="POST">
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" name="email" required placeholder="Masukkan email anda">
+                <input type="email" name="email" required placeholder="Masukkan email anda" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
             </div>
 
             <div class="form-group">

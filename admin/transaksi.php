@@ -1,5 +1,14 @@
-<?php include('../app/config/database.php'); 
+<?php 
+session_start();
+include('../app/config/database.php'); 
 $dbPath = __DIR__ . '/../app/config/database.php';
+
+// Pengecekan login
+if (!isset($_SESSION['admin_username'])) {
+    header("Location: login.php");
+    exit;
+}
+
 if (!file_exists($dbPath)) {
     die("File database.php tidak ditemukan di: $dbPath. Periksa struktur folder.");
 }
@@ -50,7 +59,7 @@ if ($result === false) {
 </div>
 
           <ul class="menu">
-            <li><a href="dashboard.php"><i class="fa-solid fa-house"></i></i> Dashboard</a></li>
+            <li><a href="index.php"><i class="fa-solid fa-house"></i></i> Dashboard</a></li>
             <li><a href="datamobil.php"><i class="fa-solid fa-car"></i> Daftar Mobil</a></li>
             <li class="active"><a href="transaksi.php"><i class="fa-solid fa-handshake"></i> Transaksi</a></li>
             <li><a href="sopir.php"><i class="fa-solid fa-id-card"></i> Sopir</a></li>

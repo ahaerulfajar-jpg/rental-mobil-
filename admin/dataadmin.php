@@ -23,7 +23,7 @@ $result = $conn->query("SELECT * FROM users WHERE role='admin' ORDER BY created_
     </div>
 
           <ul class="menu">
-            <li><a href="dashboard.php"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+            <li><a href="index.php"><i class="fa-solid fa-house"></i> Dashboard</a></li>
             <li><a href="datamobil.php"><i class="fa-solid fa-car"></i> Daftar Mobil</a></li>
             <li><a href="transaksi.php"><i class="fa-solid fa-handshake"></i> Transaksi</a></li>
             <li><a href="sopir.php"><i class="fa-solid fa-id-card"></i> Sopir</a></li>

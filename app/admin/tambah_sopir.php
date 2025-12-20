@@ -14,7 +14,7 @@ include "../config/database.php";
 
 <body>
 
-<a href="../../admin/sopir.php" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
+<a href="proses_tambah_sopir.php" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
 
 <div class="form-card">
 

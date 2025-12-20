@@ -12,64 +12,64 @@ body {
 }
 
 .sidebar {
-position: fixed;
-left: 0;
-top: 0;
-width: 240px;
-height: 100vh;
-background-color: #052a6e;
-color: white;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-padding: 20px 0;
-box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 240px;
+  height: 100vh;
+  background-color: #052a6e;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 0;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
 }
 
-
 .sidebar-header {
-text-align: center;
-margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .logo img {
-width: 150px;
+  width: 150px;
 }
 
 /* Menu */
 .menu {
-list-style: none;
-padding: 0;
-margin: 0;
-flex-grow: 1;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
 }
 
 .menu li {
-margin: 10px 0;
+  margin: 10px 0;
 }
 
 .menu a {
-display: flex;
-align-items: center;
-gap: 10px;
-padding: 12px 25px;
-color: #cbd5f0;
-text-decoration: none;
-font-weight: 500;
-transition: background 0.3s, color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 25px;
+  color: #cbd5f0;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.3s, color 0.3s;
 }
 
 .menu a:hover,
 .menu .active a {
-background-color: #1a3f91;
-color: #fff;
-border-left: 4px solid #f5c518;
+  background-color: #1a3f91;
+  color: #fff;
+  border-left: 4px solid #f5c518;
 }
 
 /* Icon style */
 .menu i {
-font-size: 16px;
+  font-size: 16px;
 }
+
 /* === Konten Utama === */
 .main-content {
   margin-left: 250px;
@@ -106,26 +106,41 @@ font-size: 16px;
 .table-container {
   background: white;
   border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow-x: auto; 
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 16px; 
 }
 
 table th, table td {
-  padding: 12px 15px;
+  padding: 10px 15px; 
   text-align: left;
   border-bottom: 1px solid #ddd;
+  vertical-align: middle; 
 }
 
 table th {
   background: #002b6b;
   color: white;
-  font-weight: 500;
+  font-weight: 600;
+  position: sticky; /* Header tetap saat scroll */
+  top: 0;
+  z-index: 1;
 }
+
+/* Kolom spesifik dengan min-width yang sangat besar untuk mencegah terlalu sempit */
+table th:nth-child(1), table td:nth-child(1) { min-width: 80px; } /* No - lebih besar */
+table th:nth-child(2), table td:nth-child(2) { min-width: 150px; } /* Foto - lebih besar untuk gambar */
+table th:nth-child(3), table td:nth-child(3) { min-width: 250px; } /* Nama - ditingkatkan drastis dari 200px */
+table th:nth-child(4), table td:nth-child(4) { min-width: 200px; } /* Telepon - ditingkatkan dari 150px */
+table th:nth-child(5), table td:nth-child(5) { min-width: 150px; } /* Status - ditingkatkan dari 120px */
+table th:nth-child(6), table td:nth-child(6) { min-width: 200px; } /* Harga - ditingkatkan dari 150px */
+table th:nth-child(7), table td:nth-child(7) { min-width: 250px; } /* Aksi - ditingkatkan drastis dari 200px */
 
 table tr:hover {
   background: #f1f5ff;
@@ -133,18 +148,20 @@ table tr:hover {
 
 .action-buttons {
   display: flex;
-  gap: 10px;
+  gap: 20px; /* Ditingkatkan dari 15px untuk ruang lebih antar tombol */
+  flex-wrap: wrap; /* Agar tombol wrap di layar kecil */
 }
 
 .btn-action {
-  padding: 6px 10px;
+  padding: 12px 18px; /* Ditingkatkan dari 10px 15px untuk tombol lebih besar */
   border-radius: 6px;
   color: white;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 16px; /* Ditingkatkan dari 14px */
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 50px; /* Ditingkatkan dari 40px */
 }
 
 .btn-action.edit { background: #27ae60; }
@@ -155,3 +172,27 @@ table tr:hover {
 
 .btn-action.delete { background: #e74c3c; }
 .btn-action.delete:hover { background: #c0392b; }
+
+/* Responsivitas untuk tabel */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
+    width: 100%;
+  }
+  .sidebar {
+    width: 200px;
+  }
+  table th, table td {
+    padding: 20px 25px; /* Kurangi sedikit di mobile tapi tetap lebih besar */
+    font-size: 16px;
+  }
+  .action-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .btn-action {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+}

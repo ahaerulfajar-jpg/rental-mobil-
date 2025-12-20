@@ -626,28 +626,52 @@ body.with-hidden-topbar .main-content {
 }
 
 
+/* ===== GRID ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px; /* JARAK ANTAR CARD DIBESARKAN */
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 16px; /* JARAK KIRI KANAN */
+}
+
+.grid-mobil {
+  display: contents;
+}
+
+/* ===== CARD ===== */
 .card-mobil {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: transform 0.3s;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card-mobil:hover {
-  transform: translateY(-8px);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.15);
 }
 
-.card-mobil img {
-  width: 100%;
-  height: 200px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
+/* ===== IMAGE ===== */
+.img-wrapper {
+  background: #f8f9fa; /* Supaya rapi walau gambar beda rasio */
+  padding: 16px;       /* JARAK GAMBAR DARI CARD */
 }
+
+.img-wrapper img {
+  width: 100%;
+  height: 180px;       /* TINGGI SERAGAM */
+  object-fit: contain; /* GAMBAR TIDAK TERPOTONG */
+  transition: transform 0.3s ease;
+}
+
+.card-mobil:hover .img-wrapper img {
+  transform: scale(1.05);
+}
+
 
 .info {
   padding: 15px;
