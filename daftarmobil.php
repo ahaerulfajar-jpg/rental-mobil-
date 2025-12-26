@@ -14,7 +14,23 @@ ini_set('display_errors', 1);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simpati Trans Makassar</title>
+    <title>Daftar Mobil - Simpati Trans Makassar</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1a73e8">
+    <meta name="description" content="Daftar mobil tersedia untuk disewa di Simpati Trans Makassar">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Simpati Trans">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/png" href="img/logo1.png">
+    <link rel="apple-touch-icon" href="img/logo1.png">
+    
     <link rel="stylesheet" href="css/daftarmobil.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
@@ -193,6 +209,7 @@ if (isset($_SESSION['pelanggan'])) {
   </footer>
 
     <script src="js/dashboard.js"></script>
+    <script src="js/pwa.js"></script>
     
     <?php include 'includes/chat_button.php'; ?>
 </body>
