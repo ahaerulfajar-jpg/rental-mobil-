@@ -49,7 +49,7 @@ if (isset($_SESSION['pelanggan'])) {
             <li><a href="index.php">Beranda</a></li>
             <li><a href="tentangkami.php">Tentang Kami</a></li>
             <li><a href="daftarmobil.php">Daftar Mobil</a></li> <!-- Diperbaiki: ekstensi .php -->
-            <li><a href="tour.html">Tour</a></li>
+            <li><a href="tour.php">Tour</a></li>
             <li><a href="pesanan.php">Pesanan Saya</a></li>
             <li><a href="#">FAQ</a></li>
             <!-- =========== LOGIN / USERNAME =========== -->

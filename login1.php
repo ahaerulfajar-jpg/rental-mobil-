@@ -65,7 +65,7 @@ if (isset($_GET['success'])) {
 
 <div class="auth-container">
   <div class="auth-box">
-    <img src="../project/img/logo1.png" class="logo" alt="Logo Simpati Trans">
+    <img src="img/logo1.png" class="logo" alt="Logo Simpati Trans">
     <h2>Login</h2>
     <p class="subtitle">Masukkan email dan password untuk melanjutkan</p>
 
