@@ -12,6 +12,22 @@ ini_set('display_errors', 1);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chat - Simpati Trans Makassar</title>
+  
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#1a73e8">
+  <meta name="description" content="Chat dengan customer service Simpati Trans Makassar">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Simpati Trans">
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json">
+  
+  <!-- Favicon and Icons -->
+  <link rel="icon" type="image/png" href="img/logo1.png">
+  <link rel="apple-touch-icon" href="img/logo1.png">
+  
   <!-- CSS untuk Header dan Navbar -->
   <link rel="stylesheet" href="css/daftarmobil.css">
   <!-- CSS untuk Footer -->
@@ -162,6 +178,9 @@ ini_set('display_errors', 1);
   
   <!-- Chat JavaScript -->
   <script src="js/chat.js"></script>
+  
+  <!-- PWA JavaScript -->
+  <script src="js/pwa.js"></script>
 
 </body>
 </html>

@@ -124,6 +124,29 @@ if (isset($n8n_response['error'])) {
     exit;
 }
 
+// Check if n8n returns an array with format [{ message: "...", success: true }]
+if (is_array($n8n_response) && !isset($n8n_response['message']) && count($n8n_response) > 0) {
+    $first_item = $n8n_response[0];
+    if (isset($first_item['message']) && isset($first_item['success'])) {
+        // Extract and return the first item
+        echo json_encode([
+            'message' => $first_item['message'],
+            'success' => $first_item['success']
+        ]);
+        exit;
+    }
+}
+
+// Check if n8n already returns the expected format { message: "...", success: true }
+if (isset($n8n_response['message']) && isset($n8n_response['success'])) {
+    // Pass through the response directly
+    echo json_encode([
+        'message' => $n8n_response['message'],
+        'success' => $n8n_response['success']
+    ]);
+    exit;
+}
+
 // Return success response
 // n8n can return the response in various formats, so we handle common cases
 $bot_message = '';
@@ -146,9 +169,8 @@ if (empty($bot_message)) {
 }
 
 echo json_encode([
-    'success' => true,
     'message' => $bot_message,
-    'timestamp' => date('Y-m-d H:i:s')
+    'success' => true
 ]);
 ?>
 
