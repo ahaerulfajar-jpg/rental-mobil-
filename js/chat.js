@@ -1,9 +1,37 @@
 /**
  * Chat functionality for n8n integration
+ * Session stored in localStorage with 30 minute expiry
  */
 
 // Global chat manager instance to prevent multiple initializations
 let globalChatManager = null;
+
+// Helper function to check and clean expired sessions
+function checkExpiredSessions() {
+    try {
+        const sessionData = localStorage.getItem('chat_session');
+        if (sessionData) {
+            const session = JSON.parse(sessionData);
+            const now = new Date().getTime();
+            const sessionExpiry = 30 * 60 * 1000; // 30 minutes
+            
+            if (now - session.timestamp >= sessionExpiry) {
+                localStorage.removeItem('chat_session');
+                console.log('Expired chat session removed');
+            }
+        }
+        
+        // Also clean up old chat_history if exists (for migration)
+        if (localStorage.getItem('chat_history')) {
+            localStorage.removeItem('chat_history');
+        }
+        if (sessionStorage.getItem('chat_history')) {
+            sessionStorage.removeItem('chat_history');
+        }
+    } catch (error) {
+        console.error('Error checking expired sessions:', error);
+    }
+}
 
 class ChatManager {
     constructor(options = {}) {
@@ -256,39 +284,53 @@ class ChatManager {
 
     loadHistory() {
         try {
-            // Try localStorage first (persists across sessions)
-            let history = localStorage.getItem('chat_history');
+            // Get chat session from localStorage
+            const sessionData = localStorage.getItem('chat_session');
             
-            // If no localStorage, try sessionStorage (persists across page navigations in same session)
-            if (!history) {
-                history = sessionStorage.getItem('chat_history');
-            }
-            
-            if (history) {
-                const parsed = JSON.parse(history);
-                // Keep only last 50 messages to avoid storage issues
-                return parsed.slice(-50);
+            if (sessionData) {
+                const session = JSON.parse(sessionData);
+                const now = new Date().getTime();
+                
+                // Check if session is expired (30 minutes = 1800000 milliseconds)
+                const sessionExpiry = 30 * 60 * 1000; // 30 minutes in milliseconds
+                
+                if (now - session.timestamp < sessionExpiry) {
+                    // Session is still valid, return history
+                    // Keep only last 50 messages to avoid storage issues
+                    return session.history.slice(-50);
+                } else {
+                    // Session expired, remove it
+                    localStorage.removeItem('chat_session');
+                    console.log('Chat session expired (30 minutes)');
+                }
             }
         } catch (error) {
             console.error('Error loading chat history:', error);
+            // If there's an error, clear the session
+            localStorage.removeItem('chat_session');
         }
         return [];
     }
 
     saveHistory() {
         try {
-            const historyJson = JSON.stringify(this.conversationHistory);
+            // Create session object with timestamp and history
+            const sessionData = {
+                timestamp: new Date().getTime(),
+                history: this.conversationHistory
+            };
             
-            // Save to both localStorage and sessionStorage for redundancy
-            localStorage.setItem('chat_history', historyJson);
-            sessionStorage.setItem('chat_history', historyJson);
+            // Save to localStorage with 30 minute expiry
+            localStorage.setItem('chat_session', JSON.stringify(sessionData));
         } catch (error) {
             console.error('Error saving chat history:', error);
-            // If localStorage fails (quota exceeded), try sessionStorage only
+            // If localStorage fails (quota exceeded), try to clear old data
             try {
-                sessionStorage.setItem('chat_history', JSON.stringify(this.conversationHistory));
+                // Remove old chat_history if exists (for migration)
+                localStorage.removeItem('chat_history');
+                sessionStorage.removeItem('chat_history');
             } catch (e) {
-                console.error('Error saving to sessionStorage:', e);
+                console.error('Error clearing old chat data:', e);
             }
         }
     }
@@ -325,6 +367,9 @@ class ChatManager {
 
     clearHistory() {
         this.conversationHistory = [];
+        // Remove chat session from localStorage
+        localStorage.removeItem('chat_session');
+        // Also remove old chat_history if exists (for migration)
         localStorage.removeItem('chat_history');
         sessionStorage.removeItem('chat_history');
         if (this.messagesContainer) {
@@ -414,9 +459,13 @@ document.addEventListener('visibilitychange', () => {
     }
 });
 
+// Check for expired sessions on page load
+checkExpiredSessions();
+
 // Initialize when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
+        checkExpiredSessions();
         initChatButton();
         initChatPage();
     });
