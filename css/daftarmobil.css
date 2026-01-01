@@ -1,3 +1,7 @@
+/* ============================================
+   1. RESET & BASE STYLES
+   ============================================ */
+
 * {
   margin: 0;
   padding: 0;
@@ -9,7 +13,10 @@ body {
   background-color: #fff;
 }
 
-/* HEADER */
+/* ============================================
+   2. LAYOUT - HEADER & NAVIGATION
+   ============================================ */
+
 .header2 {
   position: fixed;
   top: 0;
@@ -17,7 +24,7 @@ body {
   z-index: 1000;
   background: #fff;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  transition: all 0.3s ease; /* Tambahkan transisi umum jika diperlukan */
+  transition: all 0.3s ease;
 }
 
 .top-bar2 {
@@ -25,7 +32,7 @@ body {
   color: #fff;
   padding: 8px 0;
   font-size: 14px;
-  transition: transform 0.3s ease; /* Transisi untuk slide up */
+  transition: transform 0.3s ease;
 }
 
 .top-bar2 .container {
@@ -36,7 +43,7 @@ body {
 }
 
 .header2 .navbar2 {
-  background: transparent; 
+  background: transparent;
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -47,76 +54,204 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 12px 0;
+  position: relative;
 }
 
 .logo {
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
 
 .logo img {
-  height: 75px; 
+  height: 75px;
   width: auto;
-  max-height: 50px; 
-  transition: filter 0.3s ease; 
-  filter: brightness(1.2); 
+  max-height: 50px;
+  transition: filter 0.3s ease;
+  filter: brightness(1.2);
 }
 
 .nav-links2 {
   list-style: none;
   display: flex;
   gap: 20px;
+  align-items: center;
 }
 
 .nav-links2 a {
   text-decoration: none;
-  color: #333; 
+  color: #333;
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .nav-links2 a:hover {
-  color: #007BFF; 
+  color: #007BFF;
 }
 
 .header2.scrolled {
-  background: #fff; 
+  background: #fff;
 }
 
 .header2.scrolled .navbar2 {
   background: #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2); 
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 .header2.scrolled .logo {
-  color: #333; 
+  color: #333;
 }
 
 .header2.scrolled .nav-links2 a {
-  color: #333; 
+  color: #333;
 }
 
 .header2.scrolled .nav-links2 a:hover {
-  color: #007BFF; 
+  color: #007BFF;
 }
 
-/* LOGIN BUTTON */
+/* Hamburger Menu */
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.hamburger-menu span {
+  width: 100%;
+  height: 3px;
+  background-color: #333;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger-menu.active span:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 280px;
+  height: 100vh;
+  background: #fff;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+  transition: right 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+  padding-top: 80px;
+}
+
+.mobile-menu.active {
+  right: 0;
+}
+
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 999;
+}
+
+.mobile-menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-nav-links li {
+  border-bottom: 1px solid #eee;
+}
+
+.mobile-nav-links a {
+  display: block;
+  padding: 15px 20px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.mobile-nav-links a:hover,
+.mobile-nav-links a.active {
+  background-color: #f8f9fa;
+  color: #007BFF;
+}
+
+.mobile-nav-links .btn-login {
+  margin: 10px 20px;
+  text-align: center;
+  display: block;
+}
+
+.mobile-user-menu {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.mobile-user-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* ============================================
+   3. COMPONENTS - BUTTONS
+   ============================================ */
+
 .btn-login {
   padding: 8px 16px;
   background: #002b6b;
   color: white !important;
   border-radius: 6px;
   transition: 0.3s;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .btn-login:hover {
   background: #003b9b;
 }
 
-/* User menu dan dropdown */
+/* ============================================
+   4. COMPONENTS - USER MENU & DROPDOWN
+   ============================================ */
+
 .user-menu {
   position: relative;
 }
+
 .user-btn {
   display: flex;
   align-items: center;
@@ -129,9 +264,9 @@ body {
 .user-btn:hover {
   color: #007bff;
 }
-/* Dropdown menu */
+
 .dropdown-menu {
-  display: none; /* Sembunyikan default */
+  display: none;
   position: absolute;
   top: 100%;
   right: 0;
@@ -141,20 +276,19 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   min-width: 150px;
   z-index: 1000;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
+
 .dropdown-menu.show {
-  display: block; /* Tampilkan saat class 'show' ada */
+  display: block;
 }
+
 .dropdown-menu li {
   list-style: none;
 }
 
-.dropdown-menu.show {
-  display: block; /* Tampilkan saat class 'show' ada */
-}
-.dropdown-menu li {
-  list-style: none;
-}
 .dropdown-menu a {
   display: block;
   padding: 10px 15px;
@@ -162,6 +296,7 @@ body {
   text-decoration: none;
   transition: background-color 0.3s;
 }
+
 .dropdown-menu a:hover {
   background-color: #f8f9fa;
 }
@@ -174,7 +309,6 @@ body {
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
-/* Profil header */
 .profile-info {
   display: flex;
   align-items: center;
@@ -183,7 +317,6 @@ body {
   border-bottom: 1px solid #eee;
 }
 
-/* Foto profil */
 .profile-avatar {
   width: 45px;
   height: 45px;
@@ -191,7 +324,6 @@ body {
   object-fit: cover;
 }
 
-/* Nama */
 .profile-text {
   display: flex;
   flex-direction: column;
@@ -202,18 +334,20 @@ body {
   font-weight: 600;
 }
 
-/* Email */
 .profile-email {
   font-size: 13px;
   color: #666;
   margin-top: 2px;
 }
 
+/* ============================================
+   5. LAYOUT - MAIN CONTENT
+   ============================================ */
 
-/* Container utama */
 .section-mobil {
   padding: 50px 0;
   background: #fafafa;
+  margin-top: 70px;
 }
 
 .container-mobil {
@@ -222,7 +356,6 @@ body {
   margin: auto;
 }
 
-/* Judul */
 .judul-mobil {
   text-align: center;
   font-size: 32px;
@@ -231,14 +364,16 @@ body {
   color: #333;
 }
 
-/* Grid mobil */
+/* ============================================
+   6. COMPONENTS - CAR GRID & CARDS
+   ============================================ */
+
 .mobil-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 35px;
 }
 
-/* Card mobil */
 .mobil-card {
   position: relative;
   background: #fff;
@@ -253,6 +388,7 @@ body {
 .mobil-card:hover {
   transform: translateY(-7px);
   border: 1px solid #ff7a00;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
 }
 
 .status-badge {
@@ -267,21 +403,19 @@ body {
 }
 
 .status-badge.tersedia {
-  background: #28a745; /* Hijau */
+  background: #28a745;
 }
 
 .status-badge.tidak {
-  background: #dc3545; /* Merah */
+  background: #dc3545;
 }
 
-/* Disable button jika tidak tersedia */
 .btn-disabled {
   background: #b5b5b5 !important;
   pointer-events: none;
   cursor: not-allowed;
 }
 
-/* Gambar mobil */
 .mobil-img {
   width: 100%;
   height: 180px;
@@ -297,7 +431,6 @@ body {
   margin-bottom: 12px;
 }
 
-/* Nama mobil */
 .mobil-nama {
   font-size: 22px;
   font-weight: 700;
@@ -305,7 +438,6 @@ body {
   color: #222;
 }
 
-/* Spesifikasi mobil */
 .mobil-spec {
   text-align: left;
   margin: 0 auto 20px;
@@ -326,7 +458,6 @@ body {
   color: #395b9c;
 }
 
-/* Tombol */
 .mobil-btn {
   display: inline-block;
   padding: 12px 25px;
@@ -343,24 +474,9 @@ body {
   background: red;
 }
 
-/* =============== RESPONSIVE =============== */
-@media (max-width: 768px) {
-  .top-bar .container,
-  .navbar .container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .main-content {
-    padding-top: 160px; 
-  }
-}
+/* ============================================
+   7. LAYOUT - FOOTER
+   ============================================ */
 
 .footer {
   background-color: #052a6e;
@@ -392,18 +508,18 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 6px; /* kurangi jarak antar elemen */
+  gap: 6px;
+}
+
+.footer-col p {
+  margin: 0;
+  line-height: 1.4;
 }
 
 .footer-logo {
   width: 180px;
-  margin-bottom: 4px; /* jarak kecil antara logo dan teks */
+  margin-bottom: 4px;
   filter: brightness(0) invert(1);
-}
-
-.footer-col p {
-  margin: 0; /* hilangkan margin default paragraf */
-  line-height: 1.4;
 }
 
 .footer .line {
@@ -420,6 +536,7 @@ body {
   text-decoration: none;
   font-weight: 500;
 }
+
 .profile-link i {
   margin-right: 5px;
 }
@@ -439,6 +556,7 @@ body {
   align-items: center;
   margin-bottom: 10px;
 }
+
 .post-item img {
   width: 60px;
   height: 40px;
@@ -446,11 +564,13 @@ body {
   margin-right: 10px;
   border-radius: 4px;
 }
+
 .post-item a {
   color: #fff;
   text-decoration: none;
   font-size: 14px;
 }
+
 .post-item a:hover {
   text-decoration: underline;
 }
@@ -471,6 +591,130 @@ body {
   color: #c0d9ff;
   text-decoration: none;
 }
+
 .footer-bottom a:hover {
   text-decoration: underline;
+}
+
+/* ============================================
+   8. RESPONSIVE DESIGN
+   ============================================ */
+
+/* Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+  /* Hamburger Menu */
+  .hamburger-menu {
+    display: flex;
+  }
+
+  .nav-links2 {
+    display: none;
+  }
+
+  /* Top Bar */
+  .top-bar2 .container {
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+    font-size: 12px;
+  }
+
+  /* Main Content */
+  .section-mobil {
+    margin-top: 60px;
+    padding: 30px 0;
+  }
+
+  .judul-mobil {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
+  /* Grid */
+  .mobil-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+  }
+
+  .mobil-card {
+    padding: 20px;
+  }
+
+  .mobil-nama {
+    font-size: 20px;
+  }
+
+  .mobil-harga {
+    font-size: 16px;
+  }
+
+  /* Footer */
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-col {
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer .line {
+    width: 100%;
+  }
+}
+
+/* Small Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+  .section-mobil {
+    padding: 20px 0;
+  }
+
+  .container-mobil {
+    width: 95%;
+  }
+
+  .judul-mobil {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .mobil-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .mobil-card {
+    padding: 15px;
+  }
+
+  .mobil-img {
+    height: 150px;
+  }
+
+  .mobil-nama {
+    font-size: 18px;
+  }
+
+  .mobil-harga {
+    font-size: 15px;
+  }
+
+  .mobil-spec {
+    max-width: 100%;
+  }
+
+  .mobil-spec p {
+    font-size: 14px;
+  }
+
+  .mobil-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .status-badge {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
 }

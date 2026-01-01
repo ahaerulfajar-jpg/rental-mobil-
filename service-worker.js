@@ -3,8 +3,8 @@
  * Menyediakan offline functionality dan caching
  */
 
-const CACHE_NAME = 'simpati-trans-v1';
-const RUNTIME_CACHE = 'simpati-trans-runtime-v1';
+const CACHE_NAME = 'simpati-trans-v3';
+const RUNTIME_CACHE = 'simpati-trans-runtime-v3';
 
 // Assets yang akan di-cache saat install
 const STATIC_ASSETS = [
@@ -68,8 +68,19 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Skip API requests (they should always go to network)
+  // Skip API requests (they should always go to network
   if (url.pathname.startsWith('/app/api/')) {
+    return;
+  }
+
+  // For CSS/JS files with query strings (version busting), always fetch from network
+  if (url.search && (url.pathname.endsWith('.css') || url.pathname.endsWith('.js'))) {
+    event.respondWith(
+      fetch(request).catch(() => {
+        // Fallback to cache if network fails
+        return caches.match(request);
+      })
+    );
     return;
   }
 
