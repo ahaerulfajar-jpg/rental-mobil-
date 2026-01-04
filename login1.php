@@ -58,7 +58,7 @@ if (isset($_GET['success'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simpati Trans Makassar</title>
-  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/auth.css?v=2.1">
   <link href="https://cdn.jsdelivr.net/npm/bootstlare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>

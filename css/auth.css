@@ -1,91 +1,223 @@
+/* ============================================
+   1. RESET & BASE STYLES
+   ============================================ */
+
 body {
-    font-family: "Poppins", sans-serif;
-    background: linear-gradient(to right, #052a6e, #004aad);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(to right, #052a6e, #004aad);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* ============================================
+   2. LAYOUT - AUTH CONTAINER
+   ============================================ */
+
+.auth-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.auth-box {
+  background: #fff;
+  padding: 40px;
+  width: 380px;
+  max-width: 100%;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================================
+   3. COMPONENTS - LOGO & TYPOGRAPHY
+   ============================================ */
+
+.logo {
+  width: 100px;
+  margin-bottom: 15px;
+}
+
+h2 {
+  color: #052a6e;
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+/* ============================================
+   4. COMPONENTS - FORMS
+   ============================================ */
+
+.form-group {
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: 600;
+  color: #333;
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #052a6e;
+}
+
+/* ============================================
+   5. COMPONENTS - BUTTONS
+   ============================================ */
+
+.btn-auth {
+  background: #052a6e;
+  color: #fff;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+  font-size: 1rem;
+}
+
+.btn-auth:hover {
+  background: #003c8f;
+}
+
+.btn-auth:active {
+  transform: scale(0.98);
+}
+
+/* ============================================
+   6. COMPONENTS - LINKS
+   ============================================ */
+
+.switch-link {
+  margin-top: 15px;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.switch-link a {
+  color: #052a6e;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.switch-link a:hover {
+  color: #003c8f;
+  text-decoration: underline;
+}
+
+/* ============================================
+   7. RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablet & Below (max-width: 768px) */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
   }
-  
-  .auth-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-  
+
   .auth-box {
-    background: #fff;
-    padding: 40px;
-    width: 380px;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    padding: 30px 25px;
+    width: 100%;
+    max-width: 400px;
   }
-  
+
   .logo {
-    width: 100px;
-    margin-bottom: 15px;
+    width: 80px;
   }
-  
+
   h2 {
-    color: #052a6e;
-    margin-bottom: 15px;
+    font-size: 1.5rem;
   }
-  
+}
+
+/* Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+  body {
+    padding: 15px;
+    align-items: flex-start;
+    padding-top: 50px;
+  }
+
+  .auth-box {
+    padding: 25px 20px;
+    width: 100%;
+  }
+
+  .logo {
+    width: 70px;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+
   .subtitle {
-    color: #555;
-    font-size: 0.95rem;
-    margin-bottom: 20px;
-  }
-  
-  .form-group {
-    text-align: left;
+    font-size: 0.85rem;
     margin-bottom: 15px;
   }
-  
+
+  .form-group {
+    margin-bottom: 12px;
+  }
+
   label {
-    font-weight: 600;
-    color: #333;
+    font-size: 0.9rem;
   }
-  
+
   input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    outline: none;
+    padding: 8px;
+    font-size: 0.95rem;
   }
-  
-  input:focus {
-    border-color: #052a6e;
-  }
-  
+
   .btn-auth {
-    background: #052a6e;
-    color: #fff;
-    padding: 10px;
-    width: 100%;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    margin-top: 10px;
-    transition: 0.3s;
+    padding: 12px;
+    margin-top: 8px;
   }
-  
-  .btn-auth:hover {
-    background: #003c8f;
-  }
-  
+
   .switch-link {
-    margin-top: 15px;
-    color: #333;
+    font-size: 0.85rem;
   }
-  
-  .switch-link a {
-    color: #052a6e;
-    text-decoration: none;
-    font-weight: 600;
+}
+
+/* Small Mobile (max-width: 360px) */
+@media (max-width: 360px) {
+  .auth-box {
+    padding: 20px 15px;
   }
-  
+
+  .logo {
+    width: 60px;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+}

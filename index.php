@@ -33,7 +33,7 @@ ini_set('display_errors', 1);
   <link rel="apple-touch-icon" href="img/logo1.png">
   
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2.1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -63,6 +63,11 @@ if (isset($_SESSION['pelanggan'])) {
         <div class="logo">
           <img src="img/logo1.png" alt="Logo Simpati Trans">
         </div>
+        <button class="hamburger-menu" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
           <ul class="nav-links">
               <li><a href="index.php">Beranda</a></li>
               <li><a href="tentangkami.php">Tentang Kami</a></li>
@@ -92,8 +97,34 @@ if (isset($_SESSION['pelanggan'])) {
                 </ul>
               </li>
           <?php endif; ?>
-          </div>
+          </ul>
+      </div>
   </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay"></div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <ul class="mobile-nav-links">
+      <li><a href="index.php">Beranda</a></li>
+      <li><a href="tentangkami.php">Tentang Kami</a></li>
+      <li><a href="daftarmobil.php">Daftar Mobil</a></li>
+      <li><a href="tour.php">Tour</a></li>
+      <li><a href="pesanan.php">Pesanan Saya</a></li>
+      <li><a href="#">FAQ</a></li>
+      <?php if (!isset($_SESSION['user_id'])) : ?>
+        <li><a href="login1.php" class="btn-login">Login</a></li>
+      <?php else: ?>
+        <li class="mobile-user-menu">
+          <a href="#" class="mobile-user-btn">
+            <i class="fa-solid fa-user"></i> <?= $_SESSION['nama']; ?>
+          </a>
+        </li>
+        <li><a href="logout1.php">Logout</a></li>
+      <?php endif; ?>
+    </ul>
+  </div>
 </header>
 
   <!-- Banner -->

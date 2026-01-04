@@ -48,6 +48,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 12px 0;
+  position: relative;
 }
 
 .logo {
@@ -99,6 +100,123 @@
 
 .header2.scrolled .nav-links2 a:hover {
   color: #007BFF; 
+}
+
+/* Hamburger Menu */
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.hamburger-menu span {
+  width: 100%;
+  height: 3px;
+  background-color: #333;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger-menu.active span:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 280px;
+  height: 100vh;
+  background: #fff;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+  transition: right 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+  padding-top: 80px;
+}
+
+.mobile-menu.active {
+  right: 0;
+}
+
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 999;
+}
+
+.mobile-menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-nav-links li {
+  border-bottom: 1px solid #eee;
+}
+
+.mobile-nav-links a {
+  display: block;
+  padding: 15px 20px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.mobile-nav-links a:hover,
+.mobile-nav-links a.active {
+  background-color: #f8f9fa;
+  color: #007BFF;
+}
+
+.mobile-nav-links .btn-login {
+  margin: 10px 20px;
+  text-align: center;
+  display: block;
+}
+
+.mobile-user-menu {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.mobile-user-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
 }
 
 /* LOGIN BUTTON */
@@ -385,6 +503,16 @@
   }
   .footer-bottom a:hover {
     text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .navbar2 .container .nav-links2 {
+      display: none;
+    }
+
+    .hamburger-menu {
+      display: flex;
+    }
   }
 
   @media (max-width: 900px) {

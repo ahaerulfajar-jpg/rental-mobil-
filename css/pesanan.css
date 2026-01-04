@@ -1,3 +1,7 @@
+/* ============================================
+   1. RESET & BASE STYLES
+   ============================================ */
+
 * {
   margin: 0;
   padding: 0;
@@ -13,212 +17,342 @@ body {
   min-height: 100vh;
 }
 
-/* HEADER */
+/* ============================================
+   2. LAYOUT - HEADER & NAVIGATION
+   ============================================ */
+
 .header2 {
-position: fixed;
-top: 0;
-width: 100%;
-z-index: 1000;
-background: #fff;
-box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-transition: all 0.3s ease; /* Tambahkan transisi umum jika diperlukan */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
 }
 
 .top-bar2 {
-background: #ff0000;
-color: #fff;
-padding: 8px 0;
-font-size: 14px;
-transition: transform 0.3s ease; /* Transisi untuk slide up */
+  background: #ff0000;
+  color: #fff;
+  padding: 8px 0;
+  font-size: 14px;
+  transition: transform 0.3s ease;
 }
 
 .top-bar2 .container {
-width: 90%;
-margin: auto;
-display: flex;
-justify-content: space-between;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
 }
 
 .header2 .navbar2 {
-background: transparent; 
-transition: background 0.3s ease, box-shadow 0.3s ease;
+  background: transparent;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .navbar2 .container {
-width: 90%;
-margin: auto;
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 12px 0;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  position: relative;
 }
 
 .logo {
-display: flex;
-align-items: center; 
+  display: flex;
+  align-items: center;
 }
 
 .logo img {
-height: 75px; 
-width: auto;
-max-height: 50px; 
-transition: filter 0.3s ease; 
-filter: brightness(1.2); 
+  height: 75px;
+  width: auto;
+  max-height: 50px;
+  transition: filter 0.3s ease;
+  filter: brightness(1.2);
 }
 
 .nav-links2 {
-list-style: none;
-display: flex;
-gap: 20px;
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }
 
 .nav-links2 a {
-text-decoration: none;
-color: #333; 
-font-weight: 500;
-transition: color 0.3s ease;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
 
 .nav-links2 a:hover {
-color: #007BFF; 
+  color: #007BFF;
 }
 
 .header2.scrolled {
-background: #fff; 
+  background: #fff;
 }
 
 .header2.scrolled .navbar2 {
-background: #fff;
-box-shadow: 0 2px 6px rgba(0,0,0,0.2); 
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 .header2.scrolled .logo {
-color: #333; 
+  color: #333;
 }
 
 .header2.scrolled .nav-links2 a {
-color: #333; 
+  color: #333;
 }
 
 .header2.scrolled .nav-links2 a:hover {
-color: #007BFF; 
+  color: #007BFF;
 }
 
-/* LOGIN BUTTON */
+/* Hamburger Menu */
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.hamburger-menu span {
+  width: 100%;
+  height: 3px;
+  background-color: #333;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger-menu.active span:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Mobile Menu (reuse from style.css) */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 280px;
+  height: 100vh;
+  background: #fff;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+  transition: right 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+  padding-top: 80px;
+}
+
+.mobile-menu.active {
+  right: 0;
+}
+
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 999;
+}
+
+.mobile-menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-nav-links li {
+  border-bottom: 1px solid #eee;
+}
+
+.mobile-nav-links a {
+  display: block;
+  padding: 15px 20px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.mobile-nav-links a:hover,
+.mobile-nav-links a.active {
+  background-color: #f8f9fa;
+  color: #007BFF;
+}
+
+.mobile-nav-links .btn-login {
+  margin: 10px 20px;
+  text-align: center;
+  display: block;
+}
+
+.mobile-user-menu {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.mobile-user-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* ============================================
+   3. COMPONENTS - BUTTONS
+   ============================================ */
+
 .btn-login {
-padding: 8px 16px;
-background: #002b6b;
-color: white !important;
-border-radius: 6px;
-transition: 0.3s;
+  padding: 8px 16px;
+  background: #002b6b;
+  color: white !important;
+  border-radius: 6px;
+  transition: 0.3s;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .btn-login:hover {
-background: #003b9b;
+  background: #003b9b;
 }
 
-/* User menu dan dropdown */
+/* ============================================
+   4. COMPONENTS - USER MENU & DROPDOWN
+   ============================================ */
+
 .user-menu {
-position: relative;
+  position: relative;
 }
+
 .user-btn {
-display: flex;
-align-items: center;
-gap: 8px;
-text-decoration: none;
-color: #333;
-font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
 }
 
 .user-btn:hover {
-color: #007bff;
+  color: #007bff;
 }
-/* Dropdown menu */
+
 .dropdown-menu {
-display: none; /* Sembunyikan default */
-position: absolute;
-top: 100%;
-right: 0;
-background-color: white;
-border: 1px solid #ddd;
-border-radius: 4px;
-box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-min-width: 150px;
-z-index: 1000;
-}
-.dropdown-menu.show {
-display: block; /* Tampilkan saat class 'show' ada */
-}
-.dropdown-menu li {
-list-style: none;
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  min-width: 150px;
+  z-index: 1000;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .dropdown-menu.show {
-display: block; /* Tampilkan saat class 'show' ada */
+  display: block;
 }
+
 .dropdown-menu li {
-list-style: none;
+  list-style: none;
 }
+
 .dropdown-menu a {
-display: block;
-padding: 10px 15px;
-color: #333;
-text-decoration: none;
-transition: background-color 0.3s;
+  display: block;
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.3s;
 }
+
 .dropdown-menu a:hover {
-background-color: #f8f9fa;
+  background-color: #f8f9fa;
 }
 
 .profile-dropdown {
-width: 230px;
-padding: 15px;
-border-radius: 12px;
-background: #fff;
-box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  width: 230px;
+  padding: 15px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
-/* Profil header */
 .profile-info {
-display: flex;
-align-items: center;
-gap: 12px;
-padding-bottom: 12px;
-border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
 }
 
-/* Foto profil */
 .profile-avatar {
-width: 45px;
-height: 45px;
-border-radius: 50%;
-object-fit: cover;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-/* Nama */
 .profile-text {
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .profile-name {
-font-size: 16px;
-font-weight: 600;
+  font-size: 16px;
+  font-weight: 600;
 }
 
-/* Email */
 .profile-email {
-font-size: 13px;
-color: #666;
-margin-top: 2px;
+  font-size: 13px;
+  color: #666;
+  margin-top: 2px;
 }
-  
+
+/* ============================================
+   5. LAYOUT - MAIN CONTENT
+   ============================================ */
+
 .main-content {
   padding: 40px 0;
-  flex: 1; /* Membuat main content mengisi ruang tersedia */
+  flex: 1;
 }
 
-/* Title */
 .main-content h1 {
   font-size: 32px;
   font-weight: 700;
@@ -230,40 +364,43 @@ margin-top: 2px;
   margin-bottom: 25px;
 }
 
-/* ========== ORDER LIST ========== */
+/* ============================================
+   6. COMPONENTS - ORDER LIST & CARDS
+   ============================================ */
+
 .order-list {
   display: flex;
   flex-direction: column;
   gap: 22px;
-  min-height: 200px; 
-  justify-content: center; 
-  align-items: center; 
+  min-height: 200px;
+  justify-content: center;
+  align-items: center;
 }
 
-/* ========== CARD ========== */
 .order-card {
   display: flex;
-  align-items: flex-start; 
+  align-items: flex-start;
   gap: 20px;
   padding: 20px;
   border-radius: 12px;
   background: #fff;
   box-shadow: 0 4px 14px rgba(0,0,0,0.06);
   transition: 0.3s ease;
-  width: 100%; 
+  width: 100%;
 }
 
 .order-card:hover {
   transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
 }
 
-/* ========== Gambar Mobil ========== */
 .order-card img {
   width: 180px;
   height: auto;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
-/* ========== INFO ========== */
 .order-info {
   flex-grow: 1;
 }
@@ -274,14 +411,18 @@ margin-top: 2px;
   font-weight: 700;
 }
 
-/* teks info */
 .order-info p {
   margin: 5px 0;
   color: #444;
   font-size: 15px;
 }
 
-/* status */
+.order-info p i {
+  margin-right: 8px;
+  color: #666;
+}
+
+/* Status */
 .status {
   display: inline-block;
   margin-top: 10px;
@@ -291,7 +432,6 @@ margin-top: 2px;
   font-weight: 600;
 }
 
-/* warna status */
 .status.menunggu {
   background: #fff5c4;
   color: #b88b00;
@@ -312,14 +452,16 @@ margin-top: 2px;
   color: #cc0000;
 }
 
-/* ========== ACTION BUTTONS ========== */
+/* ============================================
+   7. COMPONENTS - ACTION BUTTONS
+   ============================================ */
+
 .order-actions {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-/* button detail */
 .btn-detail {
   padding: 8px 18px;
   background: #007bff;
@@ -328,13 +470,13 @@ margin-top: 2px;
   border-radius: 6px;
   font-weight: 600;
   transition: 0.2s ease;
+  text-align: center;
 }
 
 .btn-detail:hover {
   background: #005fcc;
 }
 
-/* button cancel */
 .btn-cancel {
   padding: 8px 18px;
   background: #ff9e24;
@@ -342,13 +484,14 @@ margin-top: 2px;
   text-decoration: none;
   border-radius: 6px;
   font-weight: 600;
+  transition: 0.2s ease;
+  text-align: center;
 }
 
 .btn-cancel:hover {
   background: #e57f00;
 }
 
-/* button delete */
 .btn-delete {
   padding: 8px 18px;
   background: #dc3545;
@@ -356,38 +499,29 @@ margin-top: 2px;
   text-decoration: none;
   border-radius: 6px;
   font-weight: 600;
+  transition: 0.2s ease;
+  text-align: center;
 }
 
 .btn-delete:hover {
   background: #b02a37;
 }
 
-/* ========== RESPONSIVE ========== */
-@media(max-width: 768px) {
-  .order-card {
-      flex-direction: column;
-      text-align: center;
-  }
-
-  .order-card img {
-      width: 100%;
-      height: auto;
-  }
-
-  .order-actions {
-      flex-direction: row;
-      justify-content: center;
-      flex-wrap: wrap;
-  }
-}
+/* ============================================
+   8. COMPONENTS - UTILITIES
+   ============================================ */
 
 .no-data {
-    text-align: center;
-    color: #777;
-    margin-top: 20px;
-    font-size: 18px; /* Ukuran font lebih besar untuk menonjol */
-    font-weight: 500; /* Sedikit bold */
+  text-align: center;
+  color: #777;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 500;
 }
+
+/* ============================================
+   9. LAYOUT - FOOTER
+   ============================================ */
 
 .footer {
   background: #222;
@@ -397,41 +531,110 @@ margin-top: 2px;
   font-size: 14px;
 }
 
+/* ============================================
+   10. RESPONSIVE DESIGN
+   ============================================ */
+
+/* Mobile (max-width: 768px) */
 @media (max-width: 768px) {
+  body {
+    padding-top: 60px;
+  }
 
-    .nav-links2 {
-        display: none; /* tambahkan menu toggle kalau perlu */
-    }
+  /* Hamburger Menu */
+  .hamburger-menu {
+    display: flex;
+  }
 
-    .order-card {
-        flex-direction: column;
-        text-align: center;
-    }
+  .nav-links2 {
+    display: none;
+  }
 
-    .order-card img {
-        width: 100%;
-        height: 180px;
-    }
+  /* Top Bar */
+  .top-bar2 .container {
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+    font-size: 12px;
+  }
 
-    .order-actions {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-    }
+  /* Main Content */
+  .main-content h1 {
+    font-size: 28px;
+  }
+
+  /* Order Cards */
+  .order-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+
+  .order-card img {
+    width: 100%;
+    max-width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .order-info {
+    text-align: center;
+  }
+
+  .order-info h3 {
+    font-size: 20px;
+  }
+
+  .order-actions {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .order-actions a {
+    flex: 1;
+    min-width: 120px;
+  }
 }
 
+/* Small Mobile (max-width: 480px) */
 @media (max-width: 480px) {
+  .main-content h1 {
+    font-size: 24px;
+  }
 
-    .main-content h1 {
-        font-size: 26px;
-    }
+  .subtitle {
+    font-size: 14px;
+  }
 
-    .order-card img {
-        height: 150px;
-    }
+  .order-card {
+    padding: 15px;
+  }
 
-    .order-info h3 {
-        font-size: 18px;
-    }
+  .order-card img {
+    height: 150px;
+  }
+
+  .order-info h3 {
+    font-size: 18px;
+  }
+
+  .order-info p {
+    font-size: 14px;
+  }
+
+  .order-actions {
+    flex-direction: column;
+  }
+
+  .order-actions a {
+    width: 100%;
+  }
+
+  .status {
+    font-size: 12px;
+    padding: 5px 12px;
+  }
 }
