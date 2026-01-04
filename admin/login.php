@@ -2,43 +2,47 @@
 session_start();
 include('../app/config/database.php');
 
-// Jika admin sudah login, redirect ke dashboard
-if (isset($_SESSION['admin_username'])) {
-    header("Location:index.php");
+// Jika sudah login
+if (isset($_SESSION['role'])) {
+    header("Location: index.php");
     exit;
 }
 
-// Jika form dikirim
+$error = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    // Validasi input dasar
+    // Tambahkan validasi input kosong (perbaikan kecil tanpa mengubah struktur)
     if (empty($email) || empty($password)) {
         $error = "Email dan password harus diisi!";
     } else {
-        // Gunakan prepared statement untuk keamanan
-        $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE email = ? AND role = 'admin'");
+        $stmt = $conn->prepare("
+            SELECT id, username, password, role 
+            FROM users 
+            WHERE email = ?
+        ");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
+        if ($result->num_rows === 1) {
             $user = $result->fetch_assoc();
 
-            // Verifikasi password
             if (password_verify($password, $user['password'])) {
-                // Simpan username ke session (konsisten dengan dashboard)
+                $_SESSION['user_id'] = $user['id'];
                 $_SESSION['admin_username'] = $user['username'];
+                $_SESSION['role'] = $user['role'];
+
                 header("Location: index.php");
                 exit;
             } else {
                 $error = "Password salah!";
             }
         } else {
-            $error = "Email tidak ditemukan atau bukan admin!";
+            $error = "Akun tidak ditemukan!";
         }
-        $stmt->close();
     }
 }
 ?>

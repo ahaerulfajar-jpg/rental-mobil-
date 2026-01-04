@@ -1,6 +1,6 @@
 <?php
 session_start(); // Pastikan session dimulai
-include('../app/config/database.php'); // Sertakan koneksi database jika diperlukan
+include('../app/config/database.php');
 
 ?>
 
@@ -27,7 +27,7 @@ include('../app/config/database.php'); // Sertakan koneksi database jika diperlu
     </div>
 
           <ul class="menu">
-            <li class="active"><a href="dashboard.php"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+            <li class="active"><a href="index.php"><i class="fa-solid fa-house"></i> Dashboard</a></li>
             <li><a href="datamobil.php"><i class="fa-solid fa-car"></i> Daftar Mobil</a></li>
             <li><a href="transaksi.php"><i class="fa-solid fa-handshake"></i> Transaksi</a></li>
             <li><a href="sopir.php"><i class="fa-solid fa-id-card"></i> Sopir</a></li>
@@ -39,21 +39,19 @@ include('../app/config/database.php'); // Sertakan koneksi database jika diperlu
 
         <!-- Konten Utama -->
         <main class="main-content">
-          <header class="header">
+        <header class="header">
             <h1>Dashboard Admin</h1>
             <div class="admin-info">
-              <?php if (isset($_SESSION['admin_username'])): ?>
-                <!-- Jika sudah login, tampilkan username -->
-                <i class="fa-solid fa-user-circle"></i>
-                <span><?= htmlspecialchars($_SESSION['admin_username']); ?></span>
-              <?php else: ?>
-                <!-- Jika belum login, tampilkan tombol login -->
-                <a href="login.php" class="btn-login">
-                  <i class="fa-solid fa-sign-in-alt"></i> Login
-                </a>
-              <?php endif; ?>
+            <?php if (isset($_SESSION['admin_username'])): ?>
+              <i class="fa-solid fa-user-circle"></i>
+              <span><?= htmlspecialchars($_SESSION['admin_username']); ?></span>
+            <?php else: ?>
+              <a href="login.php" class="btn-login">
+                <i class="fa-solid fa-sign-in-alt"></i> Login
+              </a>
+            <?php endif; ?>
             </div>
-          </header>
+        </header>
     
           <!-- Statistik -->
           <section class="stats">

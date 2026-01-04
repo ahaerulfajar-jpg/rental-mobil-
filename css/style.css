@@ -1079,15 +1079,18 @@ body.with-hidden-topbar .main-content {
   flex: 1;
   display: flex;
   justify-content: center;
+  align-items: center; /* memastikan vertikal rapi */
 }
 
 .hero-image img {
   width: 100%;
-  max-width: 550px;
+  max-width: 850px;
+  transform: translateX(40px); /* geser sedikit ke kanan */
   height: auto;
   margin-left: 0;
-  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.45));
 }
+
 
 .cars img {
   width: 100%;

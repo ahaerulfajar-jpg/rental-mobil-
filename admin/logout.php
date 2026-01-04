@@ -1,8 +1,11 @@
 <?php
 session_start();
-session_unset(); // Hapus semua session
-session_destroy(); // Hancurkan session
 
-header("Location: index.php"); // Arahkan ke halaman login
+// Hapus semua session
+$_SESSION = [];
+session_destroy();
+
+// KEMBALI KE INDEX (BUKAN LOGIN)
+header("Location: index.php");
 exit;
 ?>
