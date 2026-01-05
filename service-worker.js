@@ -20,40 +20,31 @@ const STATIC_ASSETS = [
   '/manifest.json'
 ];
 
-// Install event - cache static assets
+// Install event - CACHING DISABLED: Skip caching
 self.addEventListener('install', (event) => {
-  console.log('[Service Worker] Installing...');
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('[Service Worker] Caching static assets');
-        return cache.addAll(STATIC_ASSETS);
-      })
-      .then(() => self.skipWaiting())
-  );
+  console.log('[Service Worker] Installing... (Caching disabled)');
+  // Skip caching, just activate immediately
+  event.waitUntil(self.skipWaiting());
 });
 
-// Activate event - clean up old caches
+// Activate event - CACHING DISABLED: Delete all caches
 self.addEventListener('activate', (event) => {
-  console.log('[Service Worker] Activating...');
+  console.log('[Service Worker] Activating... (Clearing all caches)');
   event.waitUntil(
     caches.keys().then((cacheNames) => {
+      // Delete ALL caches since caching is disabled
       return Promise.all(
-        cacheNames
-          .filter((cacheName) => {
-            return cacheName !== CACHE_NAME && cacheName !== RUNTIME_CACHE;
-          })
-          .map((cacheName) => {
-            console.log('[Service Worker] Deleting old cache:', cacheName);
-            return caches.delete(cacheName);
-          })
+        cacheNames.map((cacheName) => {
+          console.log('[Service Worker] Deleting cache:', cacheName);
+          return caches.delete(cacheName);
+        })
       );
     })
     .then(() => self.clients.claim())
   );
 });
 
-// Fetch event - serve from cache, fallback to network
+// Fetch event - CACHING DISABLED: Always fetch from network
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
@@ -68,61 +59,16 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Skip API requests (they should always go to network
-  if (url.pathname.startsWith('/app/api/')) {
-    return;
-  }
-
-  // For CSS/JS files with query strings (version busting), always fetch from network
-  if (url.search && (url.pathname.endsWith('.css') || url.pathname.endsWith('.js'))) {
-    event.respondWith(
-      fetch(request).catch(() => {
-        // Fallback to cache if network fails
-        return caches.match(request);
-      })
-    );
-    return;
-  }
-
+  // CACHING DISABLED: Always fetch from network, no caching
   event.respondWith(
-    caches.match(request)
-      .then((cachedResponse) => {
-        // Return cached version if available
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-
-        // Otherwise fetch from network
-        return fetch(request)
-          .then((response) => {
-            // Don't cache non-successful responses
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-
-            // Don't cache CSS/JS files with query strings (version busting)
-            if (url.search && (url.pathname.endsWith('.css') || url.pathname.endsWith('.js'))) {
-              return response;
-            }
-
-            // Clone the response
-            const responseToCache = response.clone();
-
-            // Cache the response
-            caches.open(RUNTIME_CACHE)
-              .then((cache) => {
-                cache.put(request, responseToCache);
-              });
-
-            return response;
-          })
-          .catch(() => {
-            // If network fails and it's a navigation request, return offline page
-            if (request.mode === 'navigate') {
-              return caches.match('/index.php') || caches.match('/');
-            }
-          });
-      })
+    fetch(request).catch((error) => {
+      console.log('[Service Worker] Network fetch failed (no cache fallback):', error);
+      // Return error response instead of cache
+      return new Response('Network error - Caching is disabled', {
+        status: 408,
+        statusText: 'Request Timeout'
+      });
+    })
   );
 });
 

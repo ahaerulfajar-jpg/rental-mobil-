@@ -229,6 +229,61 @@
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+/* HTML content styling in bot messages */
+.chat-message.bot .chat-message-content h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 12px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.chat-message.bot .chat-message-content p {
+    margin: 0 0 12px 0;
+    line-height: 1.6;
+    color: #374151;
+}
+
+.chat-message.bot .chat-message-content p:last-child {
+    margin-bottom: 0;
+}
+
+.chat-message.bot .chat-message-content ul,
+.chat-message.bot .chat-message-content ol {
+    margin: 8px 0 12px 20px;
+    padding-left: 20px;
+    line-height: 1.6;
+}
+
+.chat-message.bot .chat-message-content ul {
+    list-style-type: disc;
+}
+
+.chat-message.bot .chat-message-content ol {
+    list-style-type: decimal;
+}
+
+.chat-message.bot .chat-message-content li {
+    margin: 6px 0;
+    color: #4b5563;
+}
+
+.chat-message.bot .chat-message-content li strong {
+    color: #111827;
+    font-weight: 600;
+}
+
+.chat-message.bot .chat-message-content ul ul {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    list-style-type: circle;
+}
+
+.chat-message.bot .chat-message-content ul ul ul {
+    list-style-type: square;
+}
+
 .chat-message-time {
     font-size: 11px;
     color: #9ca3af;
@@ -656,5 +711,88 @@
     border-left: 4px solid #dc2626;
     box-shadow: 0 2px 8px rgba(220, 38, 38, 0.1);
     font-weight: 500;
+}
+
+/* ============================================
+   JSON RESPONSE STYLING
+   ============================================ */
+
+.chat-json-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.chat-json-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.chat-json-item {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 16px;
+    transition: all 0.2s ease;
+}
+
+.chat-json-item:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+}
+
+.chat-json-item-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.chat-json-item-description {
+    font-size: 14px;
+    color: #4b5563;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.chat-json-item-details {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.chat-json-detail-row {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.chat-json-detail-key {
+    font-weight: 600;
+    color: #6b7280;
+    margin-right: 4px;
+}
+
+.chat-json-detail-value {
+    color: #1f2937;
+    flex: 1;
+}
+
+.chat-json-empty {
+    text-align: center;
+    padding: 20px;
+    color: #9ca3af;
+    font-style: italic;
+    font-size: 14px;
 }
 
