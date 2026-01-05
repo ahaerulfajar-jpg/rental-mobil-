@@ -200,7 +200,13 @@ class ChatManager {
 
         const contentDiv = document.createElement('div');
         contentDiv.className = 'chat-message-content';
-        contentDiv.textContent = text;
+        
+        // For bot messages, check if content is HTML and render accordingly
+        if (type === 'bot' && this.isHtml(text)) {
+            contentDiv.innerHTML = text;
+        } else {
+            contentDiv.textContent = text;
+        }
 
         const timeDiv = document.createElement('div');
         timeDiv.className = 'chat-message-time';
@@ -213,6 +219,13 @@ class ChatManager {
 
         // Scroll to bottom
         this.scrollToBottom();
+    }
+
+    isHtml(str) {
+        // Check if string contains HTML tags
+        if (typeof str !== 'string') return false;
+        const htmlRegex = /<[a-z][\s\S]*>/i;
+        return htmlRegex.test(str);
     }
 
     showLoading() {
