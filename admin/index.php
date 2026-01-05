@@ -44,7 +44,7 @@ include('../app/config/database.php');
             <div class="admin-info">
             <?php if (isset($_SESSION['admin_username'])): ?>
               <i class="fa-solid fa-user-circle"></i>
-              <span><?= htmlspecialchars($_SESSION['admin_username']); ?></span>
+              <span><?= htmlspecialchars($_SESSION['username']); ?></span>
             <?php else: ?>
               <a href="login.php" class="btn-login">
                 <i class="fa-solid fa-sign-in-alt"></i> Login
