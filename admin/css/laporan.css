@@ -96,6 +96,30 @@ body {
   font-size: 26px;
 }
 
+.options {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.option-btn {
+    padding: 10px 24px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    color: #052a6e;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.option-btn.active,
+.option-btn:hover {
+    background: #052a6e;
+    color: #fff;
+}
+
 /* ================= SUMMARY GRID ================= */
 .summary-grid {
   display: grid;

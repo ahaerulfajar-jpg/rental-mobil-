@@ -2,19 +2,21 @@
 session_start();
 include('../app/config/database.php');
 
-// Pengecekan login
-if (!isset($_SESSION['admin_username'])) {
-    header("Location: login.php");
+if (!isset($_SESSION['role']) || $_SESSION['role'] != 'pemilik') {
+    header("Location: index.php"); // Redirect jika bukan pemilik
     exit;
 }
 
+$bulan = date('m');
+$tahun = date('Y');
+
 // Query ringkasan harian
-$queryTotalTransaksi = "SELECT COUNT(*) AS total FROM transaksi WHERE DATE(tanggal_mulai) = CURDATE()";
+$queryTotalTransaksi = "SELECT COUNT(*) AS total FROM transaksi WHERE MONTH(tanggal_mulai) = '$bulan'AND YEAR(tanggal_mulai) = '$tahun'";
 $resultTotalTransaksi = mysqli_query($conn, $queryTotalTransaksi);
 $rowTotalTransaksi = mysqli_fetch_assoc($resultTotalTransaksi);
 $totalTransaksi = $rowTotalTransaksi['total'];
 
-$queryTotalPendapatan = "SELECT SUM(total_harga) AS total FROM transaksi WHERE DATE(tanggal_mulai) = CURDATE()";
+$queryTotalPendapatan = "SELECT SUM(total_harga) AS total FROM transaksi WHERE MONTH(tanggal_mulai) = '$bulan'AND YEAR(tanggal_mulai) = '$tahun'";
 $resultTotalPendapatan = mysqli_query($conn, $queryTotalPendapatan);
 $rowTotalPendapatan = mysqli_fetch_assoc($resultTotalPendapatan);
 $totalPendapatan = $rowTotalPendapatan['total'] ?? 0;
@@ -34,7 +36,8 @@ $queryMobil = "
     SELECT m.nama_mobil, COUNT(t.id) AS jumlah_pemesanan
     FROM transaksi t
     JOIN mobil m ON t.mobil_id = m.id
-    WHERE DATE(t.tanggal_mulai) = CURDATE()
+    WHERE MONTH(t.tanggal_mulai) = '$bulan'
+    AND YEAR(t.tanggal_mulai) = '$tahun'
     GROUP BY t.mobil_id
     ORDER BY jumlah_pemesanan DESC
 ";
@@ -42,10 +45,11 @@ $resultMobil = mysqli_query($conn, $queryMobil);
 
 // Query sopir sering dipesan hari ini - DIPERBAIKI
 $querySopir = "
-    SELECT s.nama AS nama, COUNT(t.id) AS total  -- Ganti s.nama_sopir menjadi s.nama
+    SELECT s.nama AS nama, COUNT(t.id) AS total
     FROM transaksi t
     JOIN sopir s ON t.sopir_id = s.id
-    WHERE DATE(t.tanggal_mulai) = CURDATE()
+    WHERE MONTH(t.tanggal_mulai) = '$bulan'
+    AND YEAR(t.tanggal_mulai) = '$tahun'
     GROUP BY t.sopir_id
     ORDER BY total DESC
 ";
@@ -53,11 +57,17 @@ $resultSopir = mysqli_query($conn, $querySopir);
 
 // Query laporan pendapatan hari ini
 $queryLaporan = "
-    SELECT t.tanggal_mulai, m.nama_mobil, p.nama AS nama_pelanggan, t.total_harga, t.status
+    SELECT 
+        t.tanggal_mulai,
+        m.nama_mobil,
+        p.nama AS nama_pelanggan,
+        t.total_harga,
+        t.status
     FROM transaksi t
     JOIN mobil m ON t.mobil_id = m.id
     JOIN pelanggan p ON t.pelanggan_id = p.id
-    WHERE DATE(t.tanggal_mulai) = CURDATE()
+    WHERE MONTH(t.tanggal_mulai) = '$bulan'
+    AND YEAR(t.tanggal_mulai) = '$tahun'
     ORDER BY t.tanggal_mulai DESC
 ";
 $resultLaporan = mysqli_query($conn, $queryLaporan);
@@ -83,20 +93,34 @@ $resultLaporan = mysqli_query($conn, $queryLaporan);
             </div>
         </div>
         <ul class="menu">
-            <li><a href="index.php"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+          <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
+            <li class="active"><a href="index.php"><i class="fa-solid fa-house"></i> Dashboard</a></li>
             <li><a href="datamobil.php"><i class="fa-solid fa-car"></i> Daftar Mobil</a></li>
             <li><a href="transaksi.php"><i class="fa-solid fa-handshake"></i> Transaksi</a></li>
             <li><a href="sopir.php"><i class="fa-solid fa-id-card"></i> Sopir</a></li>
-            <li class="active"><a href="laporan.php"><i class="fa-solid fa-chart-line"></i> Laporan Harian</a></li>
-            <li><a href="dataadmin.php"><i class="fa-solid fa-user-gear"></i> Admin</a></li>
+            <li><a href="riwayat.php"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Transaksi</a></li>
+          <?php endif; ?>
+           
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'pemilik'): ?>
+              <li><a href="dashboard.php"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+              <li><a href="monitoring.php"><i class="fa-solid fa-eye"></i> Monitoring </a></li>
+              <li  class="active"><a href="laporan.php"><i class="fa-solid fa-chart-line"></i> Laporan</a></li>
+              <li><a href="dataadmin.php"><i class="fa-solid fa-user-gear"></i> Admin</a></li>
+            <?php endif; ?>
+
             <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
-        </ul>
+          </ul>
     </aside>
 
     <!-- MAIN CONTENT -->
     <main class="main-content">
         <div class="header">
-            <h1>Laporan Harian - <?= date('d M Y'); ?></h1>
+            <h1>Laporan Bulanan - <?= date('F Y'); ?></h1>
+        </div>
+
+         <div class="options">
+            <a href="laporan.php" class="option-btn active">Laporan</a>
+            <a href="grafik_pendapatan.php" class="option-btn">Grafik</a>
         </div>
 
         <!-- Ringkasan -->

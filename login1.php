@@ -28,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if (password_verify($password, $hashed)) {
 
+                $_SESSION['login']   = true;
                 $_SESSION['user_id']  = $id;
                 $_SESSION['nama']     = $nama;
                 $_SESSION['email']    = $emailDB;

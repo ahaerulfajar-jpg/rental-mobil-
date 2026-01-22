@@ -3,7 +3,7 @@ session_start();
 include "../app/config/database.php";
 
 // Pengecekan login
-if (!isset($_SESSION['admin_username'])) {
+if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit;
 }
@@ -31,14 +31,23 @@ $sopir = $conn->query("SELECT * FROM sopir ORDER BY id DESC");
               <img src="../img/logo2.png" alt="Logo Simpati Trans">
           </div>
     </div>
-
-          <ul class="menu">
+    <ul class="menu">
+          <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
             <li><a href="index.php"><i class="fa-solid fa-house"></i> Dashboard</a></li>
             <li><a href="datamobil.php"><i class="fa-solid fa-car"></i> Daftar Mobil</a></li>
             <li><a href="transaksi.php"><i class="fa-solid fa-handshake"></i> Transaksi</a></li>
             <li class="active"><a href="sopir.php"><i class="fa-solid fa-id-card"></i> Sopir</a></li>
-            <li><a href="laporan.php"><i class="fa-solid fa-chart-line"></i> Laporan</a></li>
-            <li><a href="dataadmin.php"><i class="fa-solid fa-user-gear"></i> Admin</a></li>
+            <li><a href="riwayat.php"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Transaksi</a></li>
+          <?php endif; ?>
+           
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'pemilik'): ?>
+              <li class="active"><a href="dashboard.php"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+              <li><a href="monitoring.php"><i class="fa-solid fa-eye"></i> Monitoring </a></li>
+              <li><a href="laporan.php"><i class="fa-solid fa-chart-line"></i> Laporan</a></li>
+              <li><a href="dataadmin.php"><i class="fa-solid fa-user-gear"></i> Admin</a></li>
+            <?php endif; ?>
+
+          
             <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
           </ul>
         </aside>

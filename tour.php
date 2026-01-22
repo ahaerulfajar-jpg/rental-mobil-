@@ -55,29 +55,34 @@ if (isset($_SESSION['pelanggan'])) {
         <li><a href="pesanan.php">Pesanan Saya</a></li>
         <li><a href="#">FAQ</a></li>
         <!-- =========== LOGIN / USERNAME =========== -->
-        <?php if (!isset($_SESSION['user_id'])) : ?>
+    <?php if (!isset($_SESSION['user_id'])) : ?>
               <li><a href="login1.php" class="btn-login">Login</a></li>
-              <?php else: ?>
-              <li class="user-menu">
-                <a href="#" class="user-btn">
-                  <i class="fa-solid fa-user"></i> 
-                  <?= $_SESSION['nama']; ?>
-                </a>
+             <?php else: ?>
+                <li class="user-menu">
+                    <a href="#" class="user-btn">
+                        <i class="fa-solid fa-user"></i> 
+                        <?= htmlspecialchars($_SESSION['nama'] ?? 'user_id'); ?>
+                    </a>
 
-                <ul class="dropdown-menu profile-dropdown">
-                <div class="profile-info">
-                    <img src="img/person.jpg" class="profile-avatar">
-                    <div class="profile-text">
-                        <span class="profile-name"><?= $_SESSION['nama']; ?></span>
-                        <span class="profile-email"><?= $_SESSION['email']; ?></span>
-                    </div>
-                </div>
-                  <li><a href="logout1.php">Logout</a></li>
-                </ul>
-              </li>
-          <?php endif; ?>
-      </ul>
-    </div>
+                    <ul class="dropdown-menu profile-dropdown">
+                        <div class="profile-info">
+                            <img src="img/person.jpg" class="profile-avatar">
+                            <div class="profile-text">
+                                <span class="profile-name">
+                                    <?= htmlspecialchars($_SESSION['nama'] ?? '-'); ?>
+                                </span>
+                                <span class="profile-email">
+                                    <?= htmlspecialchars($_SESSION['email'] ?? '-'); ?>
+                                </span>
+                            </div>
+                        </div>
+
+                        <li><a href="logout1.php">Logout</a></li>
+                    </ul>
+                </li>
+            <?php endif; ?>
+          </ul>
+      </div>
   </nav>
   </header>
 

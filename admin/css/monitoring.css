@@ -1,0 +1,251 @@
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #f4f6f9;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    width: 250px;
+    background: #052a6e;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.15);
+}
+
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.logo img {
+    width: 150px;
+}
+
+/* ================= MENU ================= */
+.menu {
+    list-style: none;
+    flex-grow: 1;
+}
+
+.menu li {
+    margin: 6px 0;
+}
+
+.menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 25px;
+    color: #cbd5f0;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.menu a:hover,
+.menu .active a {
+    background: #1a3f91;
+    color: #fff;
+    border-left: 4px solid #f5c518;
+}
+
+/* ================= MAIN CONTENT ================= */
+.main-content {
+    margin-left: 250px;
+    padding: 30px;
+    min-height: 100vh;
+}
+
+/* ================= HEADER ================= */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 26px;
+    color: #052a6e;
+}
+
+/* ================= OPTION BUTTON ================= */
+.options {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.option-btn {
+    padding: 10px 24px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    color: #052a6e;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.option-btn.active,
+.option-btn:hover {
+    background: #052a6e;
+    color: #fff;
+}
+
+/* ================= STATS CARD ================= */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 35px;
+}
+
+.card {
+    background: #fff;
+    padding: 26px 20px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card i {
+    font-size: 36px;
+    color: #2563eb;
+    margin-bottom: 12px;
+}
+
+.card h3 {
+    font-size: 15px;
+    color: #475569;
+    margin-bottom: 6px;
+}
+
+.card p {
+    font-size: 26px;
+    font-weight: 700;
+    color: #052a6e;
+}
+
+/* ================= INFO BOX ================= */
+.info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.info-box {
+    background: #fff;
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.info-box:hover {
+    transform: translateY(-4px);
+}
+
+/* CARD KE-3 MELEBAR */
+.info-box:nth-child(3) {
+    grid-column: 1 / -1;
+}
+
+.info-box h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #052a6e;
+    margin-bottom: 16px;
+}
+
+.info-box h4 {
+    margin-top: 20px;
+    font-size: 15px;
+    color: #334155;
+}
+
+/* ================= LIST ================= */
+.info-box ul {
+    list-style: none;
+}
+
+.info-box li {
+    padding: 8px 0;
+    border-bottom: 1px dashed #e5e7eb;
+    font-size: 15px;
+    color: #475569;
+}
+
+.info-box li:last-child {
+    border-bottom: none;
+}
+
+/* ================= TABLE ================= */
+.info-box table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+}
+
+.info-box th,
+.info-box td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+}
+
+.info-box th {
+    background: #f8fafc;
+    color: #052a6e;
+}
+
+/* ================= CHART ================= */
+#transaksiChart {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1024px) {
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .info {
+        grid-template-columns: 1fr;
+    }
+
+    .info-box:nth-child(3) {
+        grid-column: auto;
+    }
+}

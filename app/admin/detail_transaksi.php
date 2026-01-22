@@ -140,33 +140,40 @@ $data = $result->fetch_assoc();
             </div>
 
             <!-- BUTTONS -->
-            <div class="button-row">
-                <?php if ($data['status'] == "Menunggu"): ?>
-                    <a href="konfirmasi_transaksi.php?id=<?= $data['id']; ?>" 
-                       class="btn approve"
-                       onclick="return confirm('Setujui transaksi ini?')">
-                       <i class="fa-solid fa-check"></i> Konfirmasi
-                    </a>
-                <?php endif; ?>
-
-                <?php if ($data['status'] != "Menunggu" && $data['status'] != "Selesai"): ?>  <!-- Diubah: Tampilkan tombol selesai jika status bukan Menunggu atau Selesai -->
-                    <a href="selesai_transaksi.php?id=<?= $data['id']; ?>" 
-                       class="btn complete"
-                       onclick="return confirm('Tandai transaksi ini sebagai selesai?')">
-                       <i class="fa-solid fa-check-circle"></i> Selesai
-                    </a>
-                <?php endif; ?>
-
-                <a href="hapus_transaksi.php?id=<?= $data['id']; ?>"
-                   class="btn delete"
-                   onclick="return confirm('Yakin ingin menghapus transaksi ini?')">
-                   <i class="fa-solid fa-trash"></i> Hapus
+        <div class="button-row">
+            <?php if ($data['status'] == "Menunggu"): ?>
+                <a href="aksi_transaksi.php?id=<?= $data['id']; ?>&action=setuju"
+                class="btn approve"
+                onclick="return confirm('Setujui transaksi ini?')">
+                <i class="fa-solid fa-check"></i> Konfirmasi
                 </a>
 
-                <a href="../../admin/transaksi.php" class="btn back">
-                    <i class="fa-solid fa-arrow-left"></i> Kembali
+                <a href="aksi_transaksi.php?id=<?= $data['id']; ?>&action=tolak"
+                class="btn delete"
+                onclick="return confirm('Tolak transaksi ini?')">
+                <i class="fa-solid fa-xmark"></i> Tolak
                 </a>
-            </div>
+            <?php endif; ?>
+
+            <?php if ($data['status'] == "Disetujui"): ?>
+                <a href="aksi_transaksi.php?id=<?= $data['id']; ?>&action=selesai"
+                class="btn complete"
+                onclick="return confirm('Tandai transaksi sebagai selesai?')">
+                <i class="fa-solid fa-check-circle"></i> Selesai
+                </a>
+            <?php endif; ?>
+
+            <a href="hapus_transaksi.php?id=<?= $data['id']; ?>"
+            class="btn delete"
+            onclick="return confirm('Yakin ingin menghapus transaksi ini?')">
+            <i class="fa-solid fa-trash"></i> Hapus
+            </a>
+
+            <a href="transaksi.php" class="btn back">
+            <i class="fa-solid fa-arrow-left"></i> Kembali
+            </a>
+        </div>
+
 
         </div>
     </div>

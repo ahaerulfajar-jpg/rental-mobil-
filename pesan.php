@@ -12,6 +12,11 @@ if (!isset($_SESSION['user_id'])) {
 $pelanggan_id = $_SESSION['user_id'];
 $mobil_id = $_GET['id'];
 
+$pelanggan = $pelanggan ?? [
+    'nama'  => '',
+    'email' => ''
+];
+
 // Ambil data mobil
 $mobil = $conn->query("SELECT * FROM mobil WHERE id='$mobil_id'")->fetch_assoc();
 
@@ -24,11 +29,13 @@ $sopir = $conn->query("SELECT * FROM sopir WHERE status='Tersedia'");
 
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <title>Form Pemesanan</title>
     <link rel="stylesheet" href="css/pesan.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a2e0a2c6f1.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script>
         // Error handler untuk Google Maps API (harus didefinisikan sebelum script dimuat)
@@ -98,12 +105,12 @@ $sopir = $conn->query("SELECT * FROM sopir WHERE status='Tersedia'");
 
                     <div class="input-group">
                         <label><i class="fa-solid fa-user"></i> Nama Lengkap</label>
-                        <input type="text" value="<?= $pelanggan['nama']; ?>" readonly>
+                        <input type="text" value="<?= htmlspecialchars($pelanggan['nama']); ?>" readonly>
                     </div>
 
                     <div class="input-group">
                         <label><i class="fa-solid fa-envelope"></i> Email</label>
-                        <input type="email" value="<?= $pelanggan['email']; ?>" readonly>
+                        <input type="email" value="<?= htmlspecialchars($pelanggan['email']); ?>" readonly>
                     </div>
                 </div>
             </div>

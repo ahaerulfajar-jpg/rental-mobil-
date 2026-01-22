@@ -4,6 +4,13 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+// User harus login
+if (!isset($_SESSION['user_id'])) {
+  header("Location: login1.php");
+  exit;
+}
+
 ?>
 
 <!DOCTYPE html>

@@ -1,0 +1,241 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background: #f5f7fb;
+  }
+
+  /* ===== LOGIN BUTTON ===== */
+.btn-login {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 18px;
+  background: linear-gradient(135deg, #0d6efd, #0a58ca);
+  color: #ffffff !important;
+
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+
+  box-shadow: 0 4px 10px rgba(13, 110, 253, 0.3);
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.btn-login:hover {
+  background: linear-gradient(135deg, #0a58ca, #084298);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(13, 110, 253, 0.45);
+}
+
+/* Icon style */
+.btn-login i {
+  font-size: 15px;
+}
+
+/* Active (klik) */
+.btn-login:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(13, 110, 253, 0.3);
+}
+
+/* Responsive (mobile) */
+@media (max-width: 768px) {
+  .btn-login {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+}
+  
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 240px;
+  height: 100vh;
+  background-color: #052a6e;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 0;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Header Logo */
+.sidebar-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo img {
+  width: 150px;
+}
+
+/* Menu */
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.menu li {
+  margin: 10px 0;
+}
+
+.menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 25px;
+  color: #cbd5f0;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.3s, color 0.3s;
+}
+
+.menu a:hover,
+.menu .active a {
+  background-color: #1a3f91;
+  color: #fff;
+  border-left: 4px solid #f5c518;
+}
+
+/* Icon style */
+.menu i {
+  font-size: 16px;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    margin-left: 250px;
+  padding: 40px;
+  width: calc(100% - 250px);
+}
+
+
+/* FILTER */
+.filter-box {
+    background: #fff;
+    padding: 15px;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+}
+
+.filter-box input,
+.filter-box select {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.btn-filter {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-filter:hover {
+    background: #0056b3;
+}
+
+/* TABLE */
+.table-wrapper {
+    background: #fff;
+    padding: 15px;
+    border-radius: 6px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table thead {
+    background: #007bff;
+    color: #fff;
+}
+
+table th,
+table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* STATUS */
+.status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status.booking {
+    background: #ffeeba;
+    color: #856404;
+}
+
+.status.berjalan {
+    background: #cce5ff;
+    color: #004085;
+}
+
+.status.selesai {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status.batal {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* ACTION BUTTON */
+.action .btn {
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin: 2px;
+    display: inline-block;
+}
+
+.btn.detail {
+    background: #17a2b8;
+    color: #fff;
+}
+
+.btn.update {
+    background: #ffc107;
+    color: #000;
+}
+
+.btn.print {
+    background: #28a745;
+    color: #fff;
+}

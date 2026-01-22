@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('app/config/database.php');
 $result = $conn->query("SELECT * FROM mobil ORDER BY id DESC LIMIT 8");
 
@@ -79,24 +80,30 @@ if (isset($_SESSION['pelanggan'])) {
              <!-- =========== LOGIN / USERNAME =========== -->
              <?php if (!isset($_SESSION['user_id'])) : ?>
               <li><a href="login1.php" class="btn-login">Login</a></li>
-              <?php else: ?>
-              <li class="user-menu">
-                <a href="#" class="user-btn">
-                  <i class="fa-solid fa-user"></i> 
-                  <?= $_SESSION['nama']; ?>
-                </a>
-                <ul class="dropdown-menu profile-dropdown">
-                <div class="profile-info">
-                    <img src="img/person.jpg" class="profile-avatar">
-                    <div class="profile-text">
-                        <span class="profile-name"><?= $_SESSION['nama']; ?></span>
-                        <span class="profile-email"><?= $_SESSION['email']; ?></span>
-                    </div>
-                </div>
-                  <li><a href="logout1.php">Logout</a></li>
-                </ul>
-              </li>
-          <?php endif; ?>
+             <?php else: ?>
+                <li class="user-menu">
+                    <a href="#" class="user-btn">
+                        <i class="fa-solid fa-user"></i> 
+                        <?= htmlspecialchars($_SESSION['nama'] ?? 'user_id'); ?>
+                    </a>
+
+                    <ul class="dropdown-menu profile-dropdown">
+                        <div class="profile-info">
+                            <img src="img/person.jpg" class="profile-avatar">
+                            <div class="profile-text">
+                                <span class="profile-name">
+                                    <?= htmlspecialchars($_SESSION['nama'] ?? '-'); ?>
+                                </span>
+                                <span class="profile-email">
+                                    <?= htmlspecialchars($_SESSION['email'] ?? '-'); ?>
+                                </span>
+                            </div>
+                        </div>
+
+                        <li><a href="logout1.php">Logout</a></li>
+                    </ul>
+                </li>
+            <?php endif; ?>
           </ul>
       </div>
   </nav>

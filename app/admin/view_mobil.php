@@ -33,7 +33,7 @@ $data = $conn->query("SELECT * FROM mobil WHERE id=$id")->fetch_assoc();
         <div class="spec-grid">
 
             <div class="spec-item">
-                <i class="fa-solid fa-chair"></i>
+                <i class="fa-solid fa-wheelchair"></i>
                 <div>
                     <p>TEMPAT DUDUK</p>
                     <span><?= $data['kapasitas']; ?></span>

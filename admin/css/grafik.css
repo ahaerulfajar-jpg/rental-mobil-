@@ -1,0 +1,162 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+  overflow: hidden;
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 250px;
+    background: #052a6e;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo img {
+    width: 150px;
+}
+
+/* Menu */
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.menu li {
+    margin: 10px 0;
+}
+
+.menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 25px;
+    color: #cbd5f0;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s, color 0.3s;
+}
+
+.menu a:hover,
+.menu .active a {
+    background-color: #1a3f91;
+    color: #fff;
+    border-left: 4px solid #f5c518;
+}
+
+/* Icon style */
+.menu i {
+    font-size: 16px;
+}
+
+/* === Konten Utama === */
+.main-content {
+    margin-left: 250px; /* HARUS sama dengan sidebar */
+    padding: 25px;
+    min-height: 100vh;
+    width: calc(100% - 250px);
+    overflow: hidden; /* HILANGKAN SCROLL */
+}
+
+.grafik-container {
+    width: 100%;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+}
+
+.grafik-container h1 {
+    text-align: left;
+     margin-bottom: 15px;
+    color: #003366;
+    font-size: 26px;
+}
+
+.options {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.option-btn {
+    padding: 10px 24px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    color: #052a6e;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.option-btn.active,
+.option-btn:hover {
+    background: #052a6e;
+    color: #fff;
+}
+
+.grafik-container canvas {
+    width:90% !important;
+    height: 90% !important;
+}
+
+.filter-form {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.filter-form select,
+.filter-form button {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.filter-form button {
+    background: #003366;
+    color: white;
+    cursor: pointer;
+}
+
+.filter-form button:hover {
+    background: #002244;
+}
+
+.chart-box {
+    background: #f9fafb;
+    padding: 20px;
+    border-radius: 10px;
+}
