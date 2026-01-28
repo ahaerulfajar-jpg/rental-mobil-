@@ -177,12 +177,20 @@ if (isset($_SESSION['pelanggan'])) {
                 </div>
 
                 <!-- Button Pesan -->
-                <a 
-                    href="<?= $m['status'] == 'Tersedia' ? 'detailmobil.php?id='.$m['id'] : '#'; ?>" 
-                    class="mobil-btn <?= $m['status'] != 'Tersedia' ? 'btn-disabled' : ''; ?>"
-                >
-                    <?= $m['status'] == 'Tersedia' ? 'Pesan Sekarang' : 'Disewa'; ?>
-                </a>
+           <a 
+              href="<?= $m['status'] == 'Tersedia' ? 'detailmobil.php?id='.$m['id'] : '#'; ?>" 
+              class="mobil-btn <?= $m['status'] != 'Tersedia' ? 'btn-disabled' : ''; ?>"
+            >
+              <?php
+                if ($m['status'] == 'Tersedia') {
+                  echo 'Pesan Sekarang';
+                } elseif ($m['status'] == 'Maintenance') {
+                  echo 'Sedang Maintenance';
+                } else {
+                  echo 'Disewa';
+                }
+              ?>
+            </a>
 
             </div>
 

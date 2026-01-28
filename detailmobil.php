@@ -281,7 +281,7 @@ if (isset($_SESSION['pelanggan'])) {
     </div>
   </footer>
 
-  <script src="js/dashboard.js"></script>
+  <script src="js/deskripsi.js"></script>
   
   <?php include 'includes/chat_button.php'; ?>
 </body>

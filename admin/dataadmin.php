@@ -8,6 +8,13 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 'pemilik') {
   exit;
 }
 
+$result = $conn->query("
+    SELECT id, username, email, created_at
+    FROM users
+    WHERE role = 'admin'
+    ORDER BY created_at DESC
+");
+
 $result = $conn->query("SELECT * FROM users WHERE role='admin' ORDER BY created_at DESC");
 ?>
 
@@ -40,6 +47,7 @@ $result = $conn->query("SELECT * FROM users WHERE role='admin' ORDER BY created_
             <li><a href="transaksi.php"><i class="fa-solid fa-handshake"></i> Transaksi</a></li>
             <li><a href="sopir.php"><i class="fa-solid fa-id-card"></i> Sopir</a></li>
             <li><a href="riwayat.php"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Transaksi</a></li>
+            <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
           <?php endif; ?>
            
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'pemilik'): ?>
@@ -47,9 +55,9 @@ $result = $conn->query("SELECT * FROM users WHERE role='admin' ORDER BY created_
               <li><a href="monitoring.php"><i class="fa-solid fa-eye"></i> Monitoring </a></li>
               <li><a href="laporan.php"><i class="fa-solid fa-chart-line"></i> Laporan</a></li>
               <li class="active"><a href="dataadmin.php"><i class="fa-solid fa-user-gear"></i> Admin</a></li>
+              <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
             <?php endif; ?>
 
-            <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
           </ul>
     </aside>
 
@@ -57,40 +65,128 @@ $result = $conn->query("SELECT * FROM users WHERE role='admin' ORDER BY created_
   <main class="main-content">
     <div class="header">
       <h1>Kelola Admin</h1>
-      <a href="../app/admin/tambah_admin.php" class="btn-add"><i class="fa-solid fa-plus"></i> Tambah Admin</a>
+      <button class="btn-add" onclick="openAddAdmin()">
+        <i class="fa-solid fa-plus"></i> Tambah Admin
+      </button>
     </div>
 
     <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Nama</th>
-            <th>Email</th>
-            <th>Dibuat Pada</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php
-          $no = 1;
-          while ($row = $result->fetch_assoc()) { ?>
-          <tr>
-            <td><?= $no++; ?></td>
-            <td><?= htmlspecialchars($row['username']); ?></td>
-            <td><?= htmlspecialchars($row['email']); ?></td>
-            <td><?= date('d-m-Y H:i', strtotime($row['created_at'])); ?></td>
-            <td class="action-buttons">
-              <a href="../app/admin/edit_admin.php?id=<?= $row['id']; ?>" class="btn-action edit" title="Edit"><i class="fa-solid fa-pen"></i></a>
-              <a href="../app/admin/reset_password.php?id=<?= $row['id']; ?>" class="btn-action reset" title="Reset Password"><i class="fa-solid fa-key"></i></a>
-              <a href="../app/admin/hapus_admin.php?id=<?= $row['id']; ?>" onclick="return confirm('Yakin ingin menghapus admin ini?')" class="btn-action delete" title="Hapus"><i class="fa-solid fa-trash"></i></a>
-            </td>
-          </tr>
-          <?php } ?>
-        </tbody>
-      </table>
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Dibuat Pada</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      <?php if ($result && $result->num_rows > 0): ?>
+        <?php $no = 1; ?>
+        <?php while ($row = $result->fetch_assoc()): ?>
+
+        <tr>
+          <td><?= $no++; ?></td>
+
+          <td><?= htmlspecialchars($row['username']); ?></td>
+
+          <td><?= htmlspecialchars($row['email']); ?></td>
+
+          <!-- STATUS -->
+          <td>
+            <span class="badge badge-aktif">Aktif</span>
+          </td>
+
+          <td><?= date('d-m-Y H:i', strtotime($row['created_at'])); ?></td>
+
+          <td class="action-buttons">
+            <!-- VIEW AKTIVITAS (OVERLAY) -->
+            <button
+              class="btn-action view"
+              title="Lihat Aktivitas"
+              onclick="openAktivitasAdmin(<?= $row['id']; ?>)">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+
+            <!-- HAPUS -->
+            <a
+              href="../app/admin/hapus_admin.php?id=<?= $row['id']; ?>"
+              onclick="return confirm('Yakin ingin menghapus admin ini?')"
+              class="btn-action delete"
+              title="Hapus">
+              <i class="fa-solid fa-trash"></i>
+            </a>
+          </td>
+        </tr>
+
+        <?php endwhile; ?>
+      <?php else: ?>
+        <tr>
+          <td colspan="6" style="text-align:center;">
+            Data admin belum tersedia
+          </td>
+        </tr>
+      <?php endif; ?>
+      </tbody>
+    </table>
+    
     </div>
   </main>
+
+  <!-- OVERLAY TAMBAH ADMIN -->
+<div id="addAdminOverlay" class="overlay">
+  <div class="overlay-card">
+    <h3><i class="fa-solid fa-user-plus"></i> Tambah Admin</h3>
+
+    <form action="../app/admin/proses_tambah_admin.php" method="POST">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" required>
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" required>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" required>
+      </div>
+
+      <input type="hidden" name="role" value="admin">
+
+      <div class="form-actions">
+        <button type="submit" class="btn-save">
+          <i class="fa-solid fa-floppy-disk"></i> Simpan
+        </button>
+        <button type="button" class="btn-cancel" onclick="closeAddAdmin()">
+          Batal
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- overlay view admin -->
+<div id="overlayAktivitas" class="overlay hidden">
+  <div class="overlay-card">
+    <div class="overlay-header">
+      <h3>📊 Aktivitas Admin</h3>
+      <button onclick="closeAktivitas()">✖</button>
+    </div>
+
+    <div class="overlay-body" id="aktivitasContent">
+      <p>Memuat data...</p>
+    </div>
+  </div>
+</div>
+
+
+<script src="js/dataadmin.js"></script>
 
 </body>
 </html>

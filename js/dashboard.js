@@ -403,19 +403,3 @@ document.getElementById("formPesan").addEventListener("submit", function(e) {
   alert("Pesanan berhasil dikirim!");
   modal.style.display = "none";
 });
-
-// Overview
-const tabButtons = document.querySelectorAll(".tab-btn");
-const tabContents = document.querySelectorAll(".tab-content");
-tabButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-        // Remove active from all buttons
-        tabButtons.forEach(b => b.classList.remove("active"));
-        // Add active to clicked button
-        btn.classList.add("active");
-        // Hide all content
-        tabContents.forEach(c => c.classList.remove("active"));
-        // Show selected content
-        document.getElementById(btn.dataset.target).classList.add("active");
-    });
-});

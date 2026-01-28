@@ -190,7 +190,7 @@
     }
 
     /* ================= STATUS BADGE ================= */
-    .badge {
+    .badge-status{
       padding: 6px 12px;
       border-radius: 20px;
       font-size: 12px;
@@ -225,7 +225,7 @@
     }
 
     .btn-info {
-      background: #0dcaf0;
+      background: #008cff;
       border: none;
       color: #fff;
     }
@@ -302,3 +302,48 @@
         font-size: 14px;
       }
     }
+
+    /* DETAIL POPUP */
+.detail-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 680px;
+  max-width: 95%;
+  display: none;
+  z-index: 1001;
+}
+
+.detail-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+  animation: fadeIn .3s ease;
+}
+
+.detail-body {
+  display: flex;
+  gap: 20px;
+}
+
+.detail-image img {
+  width: 220px;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.detail-info h4 {
+  margin-bottom: 12px;
+}
+
+.detail-info ul {
+  list-style: none;
+  padding: 0;
+}
+
+.detail-info li {
+  margin-bottom: 8px;
+  font-size: 14px;
+}

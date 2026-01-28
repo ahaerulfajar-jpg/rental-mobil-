@@ -64,3 +64,26 @@ const mainImage = document.querySelector('.car-image');
   plus.addEventListener('click', () => {
     input.value++;
   });
+
+  // tab info
+document.addEventListener("DOMContentLoaded", function () {
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabContents = document.querySelectorAll(".tab-content");
+
+    tabButtons.forEach(button => {
+        button.addEventListener("click", function () {
+
+            // Hapus status aktif semua tombol
+            tabButtons.forEach(btn => btn.classList.remove("active"));
+            // Sembunyikan semua konten
+            tabContents.forEach(content => content.classList.remove("active"));
+
+            // Aktifkan tombol yang diklik
+            this.classList.add("active");
+
+            // Tampilkan konten sesuai target
+            const targetId = this.getAttribute("data-target");
+            document.getElementById(targetId).classList.add("active");
+        });
+    });
+});

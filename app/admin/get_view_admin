@@ -1,0 +1,35 @@
+<?php
+include('../config/database.php');
+
+$id = intval($_GET['id']);
+
+// Statistik
+$stat = $conn->query("
+  SELECT 
+    COUNT(*) total,
+    SUM(jenis='login') login,
+    SUM(jenis='update') `update`
+  FROM log_aktivitas
+  WHERE admin_id = $id
+")->fetch_assoc();
+
+// Riwayat
+$result = $conn->query("
+  SELECT aktivitas, created_at
+  FROM log_aktivitas
+  WHERE admin_id = $id
+  ORDER BY created_at DESC
+  LIMIT 10
+");
+
+$logs = [];
+while ($row = $result->fetch_assoc()) {
+  $logs[] = $row;
+}
+
+echo json_encode([
+  'total' => $stat['total'] ?? 0,
+  'login' => $stat['login'] ?? 0,
+  'update' => $stat['update'] ?? 0,
+  'logs' => $logs
+]);

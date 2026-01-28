@@ -1,44 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const addBtn = document.querySelector(".btn-add");
-  
-    // Tambah Admin
-    addBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      Swal.fire({
-        title: "Tambah Admin",
-        html: `
-          <input id="username" class="swal2-input" placeholder="Username">
-          <input id="email" class="swal2-input" placeholder="Email">
-          <input id="password" type="password" class="swal2-input" placeholder="Password">
-        `,
-        confirmButtonText: "Simpan",
-        showCancelButton: true,
-        preConfirm: () => {
-          const username = document.getElementById("username").value;
-          const email = document.getElementById("email").value;
-          const password = document.getElementById("password").value;
-          if (!username || !email || !password) {
-            Swal.showValidationMessage("Harap isi semua kolom");
-          }
-          return { username, email, password };
-        },
-      }).then((result) => {
-        if (result.isConfirmed) {
-          const data = result.value;
-          fetch("tambah_admin.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: `username=${data.username}&email=${data.email}&password=${data.password}`,
-          })
-            .then((res) => res.text())
-            .then(() => {
-              Swal.fire("Berhasil!", "Admin berhasil ditambahkan", "success").then(() =>
-                location.reload()
-              );
-            });
-        }
-      });
-    });
+
   
     // Hapus Admin
     document.querySelectorAll(".btn-delete").forEach((btn) => {
@@ -69,3 +31,104 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
   
+// tambah & edit sopir
+function openTambahSopir() {
+    document.getElementById('formTitle').innerText = 'Tambah Sopir';
+
+    document.getElementById('btnSubmit').innerText = 'Simpan';
+    document.getElementById('btnSubmit').name = 'simpan_sopir';
+
+    document.getElementById('sopirId').value = '';
+    document.getElementById('formSopir').reset();
+    document.getElementById('fotoPreview').src = '';
+
+    document.getElementById('overlaySopir').style.display = 'flex';
+}
+
+function openEditSopir(id, nama, telepon, email, alamat, status, harga, tanggal, foto) {
+    document.getElementById('formTitle').innerText = 'Edit Sopir';
+
+    document.getElementById('btnSubmit').innerText = 'Update';
+    document.getElementById('btnSubmit').name = 'update_sopir';
+
+    document.getElementById('sopirId').value = id;
+    document.getElementById('nama').value = nama;
+    document.getElementById('telepon').value = telepon;
+    document.getElementById('email').value = email;
+    document.getElementById('alamat').value = alamat;
+    document.getElementById('status').value = status;
+    document.getElementById('harga').value = harga;
+    document.getElementById('tanggal').value = tanggal;
+
+    document.getElementById('fotoPreview').src =
+        foto ? '../img/' + foto : '';
+
+    document.getElementById('overlaySopir').style.display = 'flex';
+}
+
+function closeSopirForm() {
+    document.getElementById('overlaySopir').style.display = 'none';
+}
+
+//detail sopir
+  function showDetail(el) {
+    document.getElementById("overlayDetail").style.display = "flex";
+
+    document.getElementById("detailNama").innerText = el.dataset.nama;
+    document.getElementById("detailTelepon").innerText = el.dataset.telepon;
+    document.getElementById("detailHarga").innerText = "Rp " + el.dataset.harga;
+    document.getElementById("detailEmail").innerText = el.dataset.email;
+    document.getElementById("detailAlamat").innerText = el.dataset.alamat;
+    document.getElementById("detailTanggal").innerText = el.dataset.tanggal;
+    document.getElementById("detailFoto").src = el.dataset.foto;
+
+    let status = el.dataset.status;
+    let badge = document.getElementById("detailStatus");
+
+    badge.innerText = status;
+
+    if (status === "tersedia") {
+        badge.className = "badge bg-green";
+    } else if (status === "dipesan") {
+        badge.className = "badge bg-orange";
+    } else {
+        badge.className = "badge bg-red";
+    }
+}
+
+function closeDetail() {
+    document.getElementById("overlayDetail").style.display = "none";
+}
+
+//profil admin
+function openOverlay() {
+    document.getElementById('overlayAccount').style.display = 'flex';
+}
+
+function closeOverlay() {
+    document.getElementById('overlayAccount').style.display = 'none';
+}
+
+//tambah admin 
+function openAddAdmin() {
+  document.getElementById('addAdminOverlay').style.display = 'flex';
+}
+
+function closeAddAdmin() {
+  document.getElementById('addAdminOverlay').style.display = 'none';
+}
+
+//view admin
+function openAktivitasAdmin(adminId) {
+  document.getElementById('overlayAktivitas').classList.remove('hidden');
+
+  fetch('../../app/admin/view_admin.php?id=' + adminId)
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('aktivitasContent').innerHTML = data;
+    });
+}
+
+function closeAktivitas() {
+  document.getElementById('overlayAktivitas').classList.add('hidden');
+}

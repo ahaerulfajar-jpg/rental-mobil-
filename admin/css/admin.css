@@ -133,6 +133,23 @@ table th {
   z-index: 1;
 }
 
+.badge {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-aktif {
+  background: #d1e7dd;
+  color: #0f5132;
+}
+
+.badge-nonaktif {
+  background: #f8d7da;
+  color: #842029;
+}
+
 /* Kolom spesifik dengan min-width yang sangat besar untuk mencegah terlalu sempit */
 table th:nth-child(1), table td:nth-child(1) { min-width: 80px; } /* No - lebih besar */
 table th:nth-child(2), table td:nth-child(2) { min-width: 150px; } /* Foto - lebih besar untuk gambar */
@@ -166,10 +183,6 @@ table tr:hover {
 
 .btn-action.edit { background: #27ae60; }
 .btn-action.edit:hover { background: #1e8449; }
-
-.btn-action.reset { background: #f39c12; }
-.btn-action.reset:hover { background: #d68910; }
-
 .btn-action.delete { background: #e74c3c; }
 .btn-action.delete:hover { background: #c0392b; }
 
@@ -195,4 +208,133 @@ table tr:hover {
     padding: 10px 15px;
     font-size: 14px;
   }
+}
+
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.overlay-card {
+  background: #fff;
+  width: 400px;
+  padding: 25px;
+  border-radius: 12px;
+  animation: fadeIn 0.3s ease;
+}
+
+.overlay-card h3 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.btn-save {
+  background: #198754;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+}
+
+.btn-cancel {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+}
+
+@keyframes fadeIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* view admin */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay-card {
+  background: #fff;
+  width: 520px;
+  max-height: 80vh;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.overlay-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: #0d6efd;
+  color: #fff;
+}
+
+.overlay-header button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.overlay-body {
+  padding: 15px 20px;
+  overflow-y: auto;
+}
+
+.activity-item {
+  border-left: 4px solid #0d6efd;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.activity-item small {
+  color: #666;
 }

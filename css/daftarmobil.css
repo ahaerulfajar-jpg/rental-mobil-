@@ -474,6 +474,11 @@ body {
   background: red;
 }
 
+.status-badge.maintenance {
+  background: #ffc107;
+  color: #000;
+}
+
 /* ============================================
    7. LAYOUT - FOOTER
    ============================================ */

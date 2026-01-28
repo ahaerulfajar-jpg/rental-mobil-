@@ -38,6 +38,7 @@ ini_set('display_errors', 1);
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preload" as="image" href="img/banner 1.webp">
 </head>
 <body>
 
@@ -135,20 +136,44 @@ if (isset($_SESSION['pelanggan'])) {
 </header>
 
   <!-- Banner -->
-  <section class="banner">
-    <div class="slide-banner">
-      <div class="slide active" style="background-image: url('img/banner.jpg');"></div>
-      <div class="slide" style="background-image: url('img/banner 3.jpg');"></div>
-      <div class="slide" style="background-image: url('img/banner 4.jpg');"></div>
-      <div class="slide" style="background-image: url('img/banner 2.jpg');"></div>
+ <section class="banner">
+  <div class="slide-banner">
+
+    <!-- HERO IMAGE (LCP) -->
+    <div class="slide active">
+      <img 
+        src="img/banner 1.webp"
+        alt="Sewa Mobil Makassar"
+        width="1920"
+        height="900"
+        fetchpriority="high"
+        decoding="async"
+        class="banner-img"
+      >
     </div>
-  
-    <div class="banner-text">
-      <h2>Sewa Mobil Makassar</h2>
-      <p>Melayani Perjalanan Wisata, Dinas Pemerintahan, dan Lainnya</p>
-      <a href="#layanan" class="btn">Lihat Mobil</a>
+
+    <!-- SLIDE LAIN (lazy) -->
+    <div class="slide">
+      <img src="img/banner 12.webp" loading="lazy" class="banner-img">
     </div>
-  </section>
+
+    <div class="slide">
+      <img src="img/banner 13.webp" loading="lazy" class="banner-img">
+    </div>
+
+    <div class="slide">
+      <img src="img/banner 14.webp" loading="lazy" class="banner-img">
+    </div>
+
+  </div>
+
+  <div class="banner-text">
+    <h2>Sewa Mobil Makassar</h2>
+    <p>Melayani Perjalanan Wisata, Dinas Pemerintahan, dan Lainnya</p>
+    <a href="#layanan" class="btn">Lihat Mobil</a>
+  </div>
+</section>
+
 
   <!--Iklan-->
   <section class="iklan">
@@ -371,7 +396,7 @@ if (isset($_SESSION['pelanggan'])) {
         </div>
     
         <div class="hero-image">
-          <img src="img/alphard2025.png" alt="Mobil Simpati Trans">
+          <img src="img/alphard2.png" alt="Mobil Simpati Trans">
         </div>
       </div>
   </section>>

@@ -198,9 +198,6 @@ body {
   text-decoration: none;
 }
 
-.edit { background: #00ff3c; }
-.view { background: #007bff; }
-.delete { background: #f40018; }
 
 .overlay {
   position: fixed;
@@ -289,4 +286,170 @@ body {
 @keyframes scaleIn {
   from { transform: scale(.9); opacity: 0 }
   to { transform: scale(1); opacity: 1 }
+}
+
+/*detail card */
+/* Overlay */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Card */
+.detail-card {
+    background: #fff;
+    width: 700px;
+    padding: 26px 28px;
+    border-radius: 14px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,.25);
+}
+
+/* Close */
+.close-btn {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    font-size: 22px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Header */
+.detail-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.detail-header h2 {
+    margin: 0;
+    font-size: 22px;
+}
+
+/* Badge */
+.badge {
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 20px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.badge.tersedia {
+    background: #2e7d32;
+}
+
+.badge.tidak {
+    background: #c62828;
+}
+
+/* Layout kiri-kanan */
+.mobil-detail-container {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+}
+
+/* Kiri */
+.mobil-left {
+    width: 200px;
+    flex-shrink: 0;
+}
+
+.mobil-left img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid #eee;
+}
+
+/* Kanan */
+.mobil-right {
+    flex: 1;
+}
+
+.mobil-right p {
+    margin: 10px 0;
+    font-size: 15px;
+    line-height: 1.6;
+    display: flex;
+}
+
+.mobil-right strong {
+    width: 150px;
+    color: #000;
+}
+
+/* Container tombol */
+.actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+/* Base button */
+.actions .btn,
+.actions .btn-action {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.25s ease;
+}
+
+/* ICON */
+.actions i {
+    color: #fff;
+    font-size: 14px;
+}
+
+/* ===== WARNA TIAP AKSI ===== */
+
+/* Edit */
+.actions .edit {
+    background: #22c55e;
+}
+.actions .edit:hover {
+    background: #16a34a;
+    transform: scale(1.08);
+}
+
+/* Detail / View */
+.actions .blue,
+.actions .btn-action.blue {
+    background: #3b82f6;
+}
+.actions .blue:hover {
+    background: #2563eb;
+    transform: scale(1.08);
+}
+
+/* Delete */
+.actions .delete {
+    background: #ef4444;
+}
+.actions .delete:hover {
+    background: #dc2626;
+    transform: scale(1.08);
+}
+
+/* Disabled (opsional) */
+.actions .disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+    opacity: 0.7;
 }

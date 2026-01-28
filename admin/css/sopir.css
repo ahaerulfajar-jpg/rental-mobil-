@@ -103,6 +103,125 @@ font-size: 16px;
     background: #003f8c;
 }
 
+.overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+/* CARD */
+.detail-card {
+    background: #fff;
+    width: 600px;
+    border-radius: 14px;
+    padding: 25px;
+    position: relative;
+    animation: zoomIn .3s ease;
+
+    /* INI PENTING */
+    display: flex;
+    gap: 25px;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* TOMBOL CLOSE */
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+/* ===== KIRI ===== */
+.detail-header {
+    width: 35%;
+    text-align: center;
+}
+
+.detail-foto {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 3px solid #eee;
+}
+
+.detail-header h2 {
+    margin: 6px 0;
+    font-size: 20px;
+}
+
+/* STATUS */
+.badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #fff;
+}
+
+/* status dinamis */
+.badge.tersedia { background: #2ecc71; }
+.badge.dipesan { background: #f39c12; }
+.badge.tidak_aktif { background: #e74c3c; }
+
+/* ===== KANAN ===== */
+.detail-body {
+    width: 65%;
+}
+
+.detail-body p {
+    margin: 8px 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+.detail-card h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.detail-card form label {
+    display: block;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.detail-card form input,
+.detail-card form textarea,
+.detail-card form select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.btn-save {
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    background: #1e88e5;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
 /* Card */
 .card {
     background: white;

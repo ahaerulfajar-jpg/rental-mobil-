@@ -93,6 +93,8 @@ if (isset($_POST['update'])) {
             <li><a href="transaksi.php"><i class="fa-solid fa-handshake"></i> Transaksi</a></li>
             <li><a href="sopir.php"><i class="fa-solid fa-id-card"></i> Sopir</a></li>
             <li><a href="riwayat.php"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Transaksi</a></li>
+            <li><a href="profil.php"><i class="fa-solid fa-person"></i> Profil</a></li>
+            <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
           <?php endif; ?>
            
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'pemilik'): ?>
@@ -100,9 +102,9 @@ if (isset($_POST['update'])) {
               <li><a href="monitoring.php"><i class="fa-solid fa-eye"></i> Monitoring </a></li>
               <li><a href="laporan.php"><i class="fa-solid fa-chart-line"></i> Laporan</a></li>
               <li><a href="dataadmin.php"><i class="fa-solid fa-user-gear"></i> Admin</a></li>
+              <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
             <?php endif; ?>
             
-            <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
           </ul>
  </aside>
 
@@ -223,8 +225,23 @@ if (isset($_POST['update'])) {
             <button class="btn edit" onclick="openEditMobil(<?= $row['id']; ?>)">
                 <i class="fa-solid fa-pen"></i>
             </button>
-                <a href="../app/admin/view_mobil.php?id=<?= $row['id']; ?>" class="btn view">
-                    <i class="fa-solid fa-eye"></i>
+
+              <a href="javascript:void(0)"
+                onclick="openDetailMobil(
+                    '<?= $row['nama_mobil'] ?>',
+                    '<?= $row['tipe_mobil'] ?>',
+                    '<?= $row['tahun'] ?>',
+                    '<?= $row['kapasitas'] ?>',
+                    '<?= $row['transmisi'] ?>',
+                    '<?= $row['bahan_bakar'] ?>',
+                    '<?= $row['harga_sewa_per_hari'] ?>',
+                    '<?= $row['status'] ?>',
+                    '<?= $row['gambar_mobil'] ?>',
+                    '<?= date('d-m-Y', strtotime($row['created_at'])) ?>'
+                )"
+                
+                class="btn-action blue">
+                <i class="fa-solid fa-eye"></i>
                 </a>
 
                 <a href="../app/admin/hapus_mobil.php?id=<?= $row['id']; ?>" class="btn delete"
@@ -237,6 +254,38 @@ if (isset($_POST['update'])) {
         <?php } ?>
     </div>
 
+    <!-- Overlay Detail Mobil -->
+    <div id="overlayDetailMobil" class="overlay">
+    <div class="detail-card">
+
+        <span class="close-btn" onclick="closeDetailMobil()">&times;</span>
+
+        <div class="detail-header">
+            <h2>Detail Mobil</h2>
+            <span id="detailStatus" class="badge tersedia">Tersedia</span>
+        </div>
+
+        <div class="mobil-detail-container">
+            <div class="mobil-left">
+                <img id="detailGambar" src="">
+            </div>
+
+            <div class="mobil-right">
+                <p><strong>Nama Mobil</strong> <span id="detailNama"></span></p>
+                <p><strong>Tipe</strong> <span id="detailTipe"></span></p>
+                <p><strong>Tahun</strong> <span id="detailTahun"></span></p>
+                <p><strong>Kapasitas</strong> <span id="detailKapasitas"></span></p>
+                <p><strong>Transmisi</strong> <span id="detailTransmisi"></span></p>
+                <p><strong>Bahan Bakar</strong> <span id="detailBahanBakar"></span></p>
+                <p><strong>Harga / Hari</strong> <span id="detailHarga"></span></p>
+                <p><strong>Dibuat</strong> <span id="detailTanggal"></span></p>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+
      <!-- OVERLAY EDIT MOBIL -->
     <div class="overlay" id="modalEditMobil">
         <div class="modal-card">
@@ -244,7 +293,6 @@ if (isset($_POST['update'])) {
         <h3>Edit Mobil</h3>
         <button onclick="closeEditMobil()">&times;</button>
     </div>
-
             <form method="POST" enctype="multipart/form-data" class="form-grid">
 
             <input type="hidden" name="id" id="edit_id">

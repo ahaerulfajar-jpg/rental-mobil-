@@ -54,3 +54,82 @@ function openEditMobil(id) {
 function closeEditMobil() {
   document.getElementById('modalEditMobil').style.display = 'none';
 }
+
+//DETAIL MOBIL
+function openDetailMaintenance(id) {
+  fetch('../../app/admin/get_maintanance.php?id=' + id)
+    .then(res => res.json())
+    .then(data => {
+
+      document.getElementById('d_mobil').innerText = data.nama_mobil;
+      document.getElementById('d_jenis').innerText = data.jenis_perawatan;
+      document.getElementById('d_km').innerText = data.kilometer + ' KM';
+      document.getElementById('d_bengkel').innerText = data.bengkel;
+      document.getElementById('d_biaya').innerText = 
+        'Rp ' + Number(data.biaya).toLocaleString('id-ID');
+
+      document.getElementById('d_tanggal').innerText =
+        data.tanggal_mulai + ' s/d ' + (data.tanggal_selesai ?? '-');
+
+      document.getElementById('d_deskripsi').innerText = data.deskripsi;
+
+      const status = document.getElementById('d_status');
+      status.innerText = data.status_perawatan.replace('_',' ');
+      status.className = 'badge status-' + data.status_perawatan;
+
+      document.getElementById('overlayDetail').style.display = 'block';
+      document.getElementById('detailPopup').style.display = 'block';
+    });
+}
+
+function closeDetailMaintenance() {
+  document.getElementById('overlayDetail').style.display = 'none';
+  document.getElementById('detailPopup').style.display = 'none';
+}
+
+// view mobil
+function openDetailMobil(
+    nama,
+    tipe,
+    tahun,
+    kapasitas,
+    transmisi,
+    bahan_bakar,
+    harga,
+    status,
+    gambar,
+    created_at
+) {
+    // isi text
+    document.getElementById('detailNama').innerText = nama;
+    document.getElementById('detailTipe').innerText = tipe;
+    document.getElementById('detailTahun').innerText = tahun;
+    document.getElementById('detailKapasitas').innerText = kapasitas + ' Orang';
+    document.getElementById('detailTransmisi').innerText = transmisi;
+    document.getElementById('detailBahanBakar').innerText = bahan_bakar;
+    document.getElementById('detailHarga').innerText =
+        'Rp ' + Number(harga).toLocaleString('id-ID');
+    document.getElementById('detailTanggal').innerText = created_at;
+
+    // gambar
+    document.getElementById('detailGambar').src =
+        gambar ? '../../img/' + gambar : '../../img/';
+
+    // status badge
+    const statusEl = document.getElementById('detailStatus');
+    statusEl.innerText = status;
+
+    statusEl.className = 'badge'; // reset class
+    if (status.toLowerCase() === 'tersedia') {
+        statusEl.classList.add('tersedia');
+    } else {
+        statusEl.classList.add('tidak');
+    }
+
+    // tampilkan overlay
+    document.getElementById('overlayDetailMobil').style.display = 'flex';
+}
+
+function closeDetailMobil() {
+    document.getElementById('overlayDetailMobil').style.display = 'none';
+}

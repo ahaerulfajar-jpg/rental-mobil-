@@ -7,6 +7,11 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
     exit;
 }
 
+$where = [];
+$filterTanggal = $_GET['tanggal'] ?? '';
+$keyword = $_GET['keyword'] ?? '';
+
+// QUERY UTAMA (WAJIB ADA)
 $query = "
     SELECT 
         t.id,
@@ -22,9 +27,37 @@ $query = "
     JOIN pelanggan p ON t.pelanggan_id = p.id
     JOIN mobil m ON t.mobil_id = m.id
     LEFT JOIN sopir s ON t.sopir_id = s.id
-    ORDER BY t.created_at DESC
 ";
 
+// FILTER TANGGAL
+if (!empty($filterTanggal)) {
+   $where[] = "
+    DATE('$filterTanggal') >= DATE(t.tanggal_mulai)
+    AND (
+        t.tanggal_selesai IS NULL
+        OR DATE('$filterTanggal') <= DATE(t.tanggal_selesai)
+    )";
+}
+
+// FILTER PENCARIAN
+if (!empty($keyword)) {
+    $keyword = mysqli_real_escape_string($conn, $keyword);
+    $where[] = "(
+        p.nama LIKE '%$keyword%' OR
+        m.nama_mobil LIKE '%$keyword%' OR
+        s.nama LIKE '%$keyword%'
+    )";
+}
+
+// GABUNGKAN WHERE
+if (!empty($where)) {
+    $query .= " WHERE " . implode(" AND ", $where);
+}
+
+// ORDER BY (SELALU TERAKHIR)
+$query .= " ORDER BY t.created_at DESC";
+
+// EKSEKUSI
 $result = mysqli_query($conn, $query);
 ?>
 
@@ -58,6 +91,8 @@ $result = mysqli_query($conn, $query);
             <li><a href="transaksi.php"><i class="fa-solid fa-handshake"></i> Transaksi</a></li>
             <li><a href="sopir.php"><i class="fa-solid fa-id-card"></i> Sopir</a></li>
             <li class="active"><a href="riwayat.php"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Transaksi</a></li>
+            <li><a href="profil.php"><i class="fa-solid fa-person"></i> Profil</a></li>
+            <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
           <?php endif; ?>
            
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'pemilik'): ?>
@@ -65,20 +100,33 @@ $result = mysqli_query($conn, $query);
               <li><a href="monitoring.php"><i class="fa-solid fa-eye"></i> Monitoring </a></li>
               <li><a href="laporan.php"><i class="fa-solid fa-chart-line"></i> Laporan</a></li>
               <li><a href="dataadmin.php"><i class="fa-solid fa-user-gear"></i> Admin</a></li>
+               <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
             <?php endif; ?>
-            
-            <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+        
           </ul>
  </aside>
 
  <div class="main-content">
 
     <!-- FILTER -->
-    <div class="filter-box">
-        <input type="date">
-        <input type="text" placeholder="Cari transaksi...">
-        <button class="btn-filter">Filter</button>
-    </div>
+ <form method="GET" class="filter-box">
+    <input 
+        type="date" 
+        name="tanggal"
+        value="<?= $_GET['tanggal'] ?? '' ?>"
+    >
+
+    <input 
+        type="text" 
+        name="keyword"
+        placeholder="Cari pelanggan / mobil / sopir..."
+        value="<?= $_GET['keyword'] ?? '' ?>"
+    >
+
+    <button type="submit" class="btn-filter">
+        Filter
+    </button>
+</form>
 
  <div class="table-wrapper">
         <table>

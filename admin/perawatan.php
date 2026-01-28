@@ -70,10 +70,7 @@ if (isset($_POST['simpan_maintenance'])) {
     }
 }
 
-
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="id">
@@ -105,7 +102,10 @@ if (isset($_POST['simpan_maintenance'])) {
             <li class="active"><a href="datamobil.php"><i class="fa-solid fa-car"></i> Daftar Mobil</a></li>
             <li><a href="transaksi.php"><i class="fa-solid fa-handshake"></i> Transaksi</a></li>
             <li><a href="sopir.php"><i class="fa-solid fa-id-card"></i> Sopir</a></li>
+            <li><a href="profil.php"><i class="fa-solid fa-person"></i> Profil</a></li>
             <li><a href="riwayat.php"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Transaksi</a></li>
+            <li><a href="profil.php"><i class="fa-solid fa-person"></i> Profil</a></li>
+             <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
           <?php endif; ?>
            
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'pemilik'): ?>
@@ -114,8 +114,6 @@ if (isset($_POST['simpan_maintenance'])) {
               <li><a href="laporan.php"><i class="fa-solid fa-chart-line"></i> Laporan</a></li>
               <li><a href="dataadmin.php"><i class="fa-solid fa-user-gear"></i> Admin</a></li>
             <?php endif; ?>
-            
-            <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
           </ul>
  </aside>
 
@@ -241,19 +239,24 @@ if (isset($_POST['simpan_maintenance'])) {
               </span>
             </td>
             <td>
-              <a href="detail_maintenance.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-info">
+
+              <button class="btn btn-sm btn-info"
+                onclick="openDetailMaintenance(<?= $row['id'] ?>)">
                 <i class="fa fa-eye"></i>
-              </a>
+              </button>
+
+
               <a href="edit_maintenance.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-warning">
                 <i class="fa fa-edit"></i>
               </a>
+
               <?php if ($row['status_perawatan'] == 'dalam_perawatan'): ?>
-              <a href="../app/admin/selesai_maintenance.php?id=<?= $row['id'] ?>" 
+              <a href="../app/admin/selesai_maintanance.php?id=<?= $row['id'] ?>" 
                 class="btn btn-sm btn-success"
                 onclick="return confirm('Selesaikan maintenance ini?')">
                 <i class="fa fa-check"></i>
               </a>
-<?php endif; ?>
+              <?php endif; ?>
 
             </td>
           </tr>
@@ -269,6 +272,59 @@ if (isset($_POST['simpan_maintenance'])) {
 </div>
 
 <script src="js/datamobil.js"></script>
+
+<!--detail maintenance-->
+<div class="overlay" id="overlayDetail" onclick="closeDetailMaintenance()"></div>
+
+<div class="detail-popup" id="detailPopup">
+  <div class="detail-card">
+
+    <div class="card-header">
+      <h5>Detail Maintenance Mobil</h5>
+      <button class="close-btn" onclick="closeDetailMaintenance()">×</button>
+    </div>
+
+    <div class="detail-body">
+      <table class="table table-borderless detail-table">
+        <tr>
+          <th>Mobil</th>
+          <td id="d_mobil"></td>
+        </tr>
+        <tr>
+          <th>Jenis Perawatan</th>
+          <td id="d_jenis"></td>
+        </tr>
+        <tr>
+          <th>Kilometer</th>
+          <td id="d_km"></td>
+        </tr>
+        <tr>
+          <th>Bengkel</th>
+          <td id="d_bengkel"></td>
+        </tr>
+        <tr>
+          <th>Biaya</th>
+          <td id="d_biaya"></td>
+        </tr>
+        <tr>
+          <th>Tanggal</th>
+          <td id="d_tanggal"></td>
+        </tr>
+        <tr>
+          <th>Status</th>
+          <td>
+            <span class="badge" id="d_status"></span>
+          </td>
+        </tr>
+        <tr>
+          <th>Deskripsi</th>
+          <td id="d_deskripsi"></td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+</div>
 
 </body>
 </html>

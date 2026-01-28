@@ -99,6 +99,7 @@ $resultLaporan = mysqli_query($conn, $queryLaporan);
             <li><a href="transaksi.php"><i class="fa-solid fa-handshake"></i> Transaksi</a></li>
             <li><a href="sopir.php"><i class="fa-solid fa-id-card"></i> Sopir</a></li>
             <li><a href="riwayat.php"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Transaksi</a></li>
+            <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
           <?php endif; ?>
            
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'pemilik'): ?>
@@ -106,9 +107,9 @@ $resultLaporan = mysqli_query($conn, $queryLaporan);
               <li><a href="monitoring.php"><i class="fa-solid fa-eye"></i> Monitoring </a></li>
               <li  class="active"><a href="laporan.php"><i class="fa-solid fa-chart-line"></i> Laporan</a></li>
               <li><a href="dataadmin.php"><i class="fa-solid fa-user-gear"></i> Admin</a></li>
+              <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
             <?php endif; ?>
 
-            <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
           </ul>
     </aside>
 
