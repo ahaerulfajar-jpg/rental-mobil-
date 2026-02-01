@@ -1,99 +1,107 @@
-version: '3.8'
+version: "3.8"
 
 services:
   web:
     build: .
     container_name: rental-mobil
-    ports:
-      - "8080:80"
+    restart: always
     volumes:
       - .:/var/www/html
-    depends_on:
-      db:
-        condition: service_healthy
     environment:
       - APACHE_DOCUMENT_ROOT=/var/www/html
       - DB_HOST=db
       - DB_USER=rentuser
       - DB_PASS=rentpass
       - DB_NAME=rent_car
+    depends_on:
+      db:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.rental.rule=Host(`rental.domain.com`)"
+      - "traefik.http.routers.rental.entrypoints=websecure"
+      - "traefik.http.routers.rental.tls.certresolver=le"
+      - "traefik.http.services.rental.loadbalancer.server.port=80"
     networks:
       - rental-network
+      - traefik-public
+
 
   db:
     image: mysql:8.0
     container_name: rental-mobil-db
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: rent_car
       MYSQL_USER: rentuser
       MYSQL_PASSWORD: rentpass
-    ports:
-      - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
       - ./rent_car.sql:/docker-entrypoint-initdb.d/rent_car.sql
     networks:
       - rental-network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       timeout: 5s
       retries: 5
+
 
   n8n:
     image: n8nio/n8n:latest
     container_name: rental-mobil-n8n
     restart: unless-stopped
-    ports:
-      - "5678:5678"
     environment:
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=${N8N_USER:-admin}
       - N8N_BASIC_AUTH_PASSWORD=${N8N_PASSWORD:-admin123}
-      - N8N_HOST=${N8N_HOST:-localhost}
+      - N8N_HOST=n8n.rental.domain.com
       - N8N_PORT=5678
-      - N8N_PROTOCOL=http
-      - WEBHOOK_URL=http://localhost:5678/
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://n8n.rental.domain.com/
       - GENERIC_TIMEZONE=Asia/Makassar
       - TZ=Asia/Makassar
       - NODE_ENV=production
-      - EXECUTIONS_DATA_SAVE_ON_ERROR=all
-      - EXECUTIONS_DATA_SAVE_ON_SUCCESS=all
-      - EXECUTIONS_DATA_SAVE_MANUAL_EXECUTIONS=true
-      - N8N_METRICS=true
     volumes:
       - n8n_data:/home/node/.n8n
-      - ./n8n/workflows:/data/workflows
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.n8n.rule=Host(`n8n.rental.domain.com`)"
+      - "traefik.http.routers.n8n.entrypoints=websecure"
+      - "traefik.http.routers.n8n.tls.certresolver=le"
+      - "traefik.http.services.n8n.loadbalancer.server.port=5678"
     networks:
       - rental-network
-    depends_on:
-      - web
-    healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:5678/healthz"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+      - traefik-public
+
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: rental-mobil-phpmyadmin
     restart: unless-stopped
-    ports:
-      - "8081:80"
     environment:
       - PMA_HOST=db
       - PMA_PORT=3306
-      - PMA_USER=${PMA_USER:-root}
-      - PMA_PASSWORD=${PMA_PASSWORD:-rootpassword}
-      - MYSQL_ROOT_PASSWORD=rootpassword
+      - PMA_USER=root
+      - PMA_PASSWORD=rootpassword
       - UPLOAD_LIMIT=300M
-    networks:
-      - rental-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.pma.rule=Host(`db.rental.domain.com`)"
+      - "traefik.http.routers.pma.entrypoints=websecure"
+      - "traefik.http.routers.pma.tls.certresolver=le"
+      - "traefik.http.services.pma.loadbalancer.server.port=80"
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - rental-network
+      - traefik-public
+
 
 volumes:
   db_data:
@@ -103,3 +111,5 @@ networks:
   rental-network:
     driver: bridge
 
+  traefik-public:
+    external: true
