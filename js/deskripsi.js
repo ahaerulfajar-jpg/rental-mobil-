@@ -38,6 +38,53 @@ window.addEventListener('resize', () => {
   }
 });
 
+// ====== HAMBURGER MENU ======
+document.addEventListener('DOMContentLoaded', function() {
+  const hamburgerMenu = document.querySelector('.hamburger-menu');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
+  const body = document.body;
+
+  if (hamburgerMenu && mobileMenu && mobileMenuOverlay) {
+    // Toggle menu saat hamburger diklik
+    hamburgerMenu.addEventListener('click', function() {
+      hamburgerMenu.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      mobileMenuOverlay.classList.toggle('active');
+      body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+
+    // Tutup menu saat overlay diklik
+    mobileMenuOverlay.addEventListener('click', function() {
+      hamburgerMenu.classList.remove('active');
+      mobileMenu.classList.remove('active');
+      mobileMenuOverlay.classList.remove('active');
+      body.style.overflow = '';
+    });
+
+    // Tutup menu saat link diklik
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        hamburgerMenu.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        mobileMenuOverlay.classList.remove('active');
+        body.style.overflow = '';
+      });
+    });
+
+    // Tutup menu saat resize window menjadi desktop size
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768) {
+        hamburgerMenu.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        mobileMenuOverlay.classList.remove('active');
+        body.style.overflow = '';
+      }
+    });
+  }
+});
+
 //deskripsi mobil
 const mainImage = document.querySelector('.car-image');
   const thumbnails = document.querySelectorAll('.thumb');

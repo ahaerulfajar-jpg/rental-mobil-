@@ -170,8 +170,21 @@ function nextSlideIklan() {
   showSlideIklan(currentSlideIklan);
 }
 
-// jalan otomatis
-setInterval(nextSlideIklan, 5000);
+let sliderInterval = null;
+
+function startSliderIklan() {
+  if (sliderInterval) return;
+  sliderInterval = setInterval(nextSlideIklan, 5000);
+}
+
+const observer = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    startSliderIklan();
+    observer.disconnect();
+  }
+}, { threshold: 0.3 });
+
+observer.observe(document.querySelector(".iklan-besar"));
 
 // klik dots manual
 dotsIklan.forEach((dot, index) => {

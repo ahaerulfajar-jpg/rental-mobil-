@@ -544,7 +544,7 @@ body.with-hidden-topbar .main-content {
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
   display: flex;
   align-items: center;
 }

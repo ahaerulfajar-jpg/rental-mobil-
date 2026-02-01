@@ -180,10 +180,10 @@ if (isset($_SESSION['pelanggan'])) {
     <!-- Baris Iklan Kecil -->
     <div class="iklan-row">
       <div class="iklan-card">
-        <img src="img/promo.png" alt="Iklan 1">
+        <img src="img/promo.webp" alt="Iklan 1" loading="lazy" decoding="async" width="600" height="400">
       </div>
       <div class="iklan-card">
-        <img src="img/promo 5.jpg" alt="Iklan 2">
+        <img src="img/promo 5.webp" alt="Iklan 2" loading="lazy" decoding="async">
       </div>
     </div>
   </section>
@@ -192,16 +192,16 @@ if (isset($_SESSION['pelanggan'])) {
   <section class="iklan-besar">
     <div class="slide-container">
       <div class="slide-iklan">
-        <img src="img/promo 2.jpg" alt="Iklan Besar 1">
+        <img src="img/promo 2.webp" alt="Iklan Besar 1" fetchpriority="low" decoding="async">
       </div>
       <div class="slide-iklan">
-        <img src="img/promo 3.jpg" alt="Iklan Besar 2">
+        <img src="img/promo 3.webp" alt="Iklan Besar 2"  loading="lazy" class="lazy-iklan">
       </div>
       <div class="slide-iklan">
-        <img src="img/promo 6.jpg" alt="Iklan Besar 3">
+        <img src="img/promo 6.webp" alt="Iklan Besar 3">
       </div>
       <div class="slide-iklan">
-        <img src="img/promo 7.jpg" alt="Iklan Besar 4">
+        <img src="img/promo 7.webp" alt="Iklan Besar 4">
       </div>
     </div>
   
@@ -584,7 +584,7 @@ if (isset($_SESSION['pelanggan'])) {
     </div>
   </footer>
 
-  <script src="js/dashboard.js"></script>
+  <script src="js/dashboard.js" defer></script>
   <script src="js/pwa.js"></script>
   
   <?php include 'includes/chat_button.php'; ?>
