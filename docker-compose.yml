@@ -19,7 +19,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-public"
-      - "traefik.http.routers.rental.rule=Host(`rental.domain.com`)"
+      - "traefik.http.routers.rental.rule=Host(`rental.sipatokaan.com`)"
       - "traefik.http.routers.rental.entrypoints=websecure"
       - "traefik.http.routers.rental.tls.certresolver=le"
       - "traefik.http.services.rental.loadbalancer.server.port=80"
