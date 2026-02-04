@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   web:
     build: .
@@ -57,10 +55,10 @@ services:
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=${N8N_USER:-admin}
       - N8N_BASIC_AUTH_PASSWORD=${N8N_PASSWORD:-admin123}
-      - N8N_HOST=n8n.rental.domain.com
+      - N8N_HOST=n8n.rental.sipatokaan.com
       - N8N_PORT=5678
       - N8N_PROTOCOL=https
-      - WEBHOOK_URL=https://n8n.rental.domain.com/
+      - WEBHOOK_URL=https://n8n.rental.sipatokaan.com/
       - GENERIC_TIMEZONE=Asia/Makassar
       - TZ=Asia/Makassar
       - NODE_ENV=production
@@ -69,7 +67,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-public"
-      - "traefik.http.routers.n8n.rule=Host(`n8n.rental.domain.com`)"
+      - "traefik.http.routers.n8n.rule=Host(`n8n.rental.sipatokaan.com`)"
       - "traefik.http.routers.n8n.entrypoints=websecure"
       - "traefik.http.routers.n8n.tls.certresolver=le"
       - "traefik.http.services.n8n.loadbalancer.server.port=5678"
@@ -84,19 +82,19 @@ services:
     restart: unless-stopped
     environment:
       - PMA_HOST=db
-      - PMA_PORT=3306
+      - PMA_PORT=3307
       - PMA_USER=root
       - PMA_PASSWORD=rootpassword
       - UPLOAD_LIMIT=300M
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-public"
-      - "traefik.http.routers.pma.rule=Host(`db.rental.domain.com`)"
+      - "traefik.http.routers.pma.rule=Host(`db.rental.sipatokaan.com`)"
       - "traefik.http.routers.pma.entrypoints=websecure"
       - "traefik.http.routers.pma.tls.certresolver=le"
       - "traefik.http.services.pma.loadbalancer.server.port=80"
     depends_on:
-      db:
+      db: 
         condition: service_healthy
     networks:
       - rental-network

@@ -12,8 +12,9 @@
 $isDocker = file_exists('/.dockerenv');
 
 // Default URL: use Docker service name if in Docker, otherwise localhost
-$defaultUrl = $isDocker ? 'http://n8n:5678/webhook/chat' : 'http://localhost:5678/webhook/chat';
-
+// $defaultUrl = $isDocker ? 'http://n8n:5678/webhook/chat' : 'http://localhost:5678/webhook/chat';
+$defaultUrl = 'https://n8n.rental.sipatokaan.com/webhook/chat';
+ 
 // Use environment variable if set, otherwise use auto-detected default
 $n8nWebhookUrl = getenv('N8N_WEBHOOK_URL') ?: $defaultUrl;
 define('N8N_WEBHOOK_URL', $n8nWebhookUrl);
