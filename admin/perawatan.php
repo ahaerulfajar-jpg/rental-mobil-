@@ -100,6 +100,7 @@ if (isset($_POST['simpan_maintenance'])) {
           <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
             <li><a href="index.php"><i class="fa-solid fa-house"></i> Dashboard</a></li>
             <li class="active"><a href="datamobil.php"><i class="fa-solid fa-car"></i> Daftar Mobil</a></li>
+            <li><a href="galeri_mobil.php"><i class="fa-solid fa-images"></i> Galeri Mobil</a></li>
             <li><a href="transaksi.php"><i class="fa-solid fa-handshake"></i> Transaksi</a></li>
             <li><a href="sopir.php"><i class="fa-solid fa-id-card"></i> Sopir</a></li>
             <li><a href="profil.php"><i class="fa-solid fa-person"></i> Profil</a></li>

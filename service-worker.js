@@ -3,8 +3,8 @@
  * Menyediakan offline functionality dan caching
  */
 
-const CACHE_NAME = 'simpati-trans-v4';
-const RUNTIME_CACHE = 'simpati-trans-runtime-v4';
+const CACHE_NAME = 'simpati-trans-v5';
+const RUNTIME_CACHE = 'simpati-trans-runtime-v5';
 
 // Assets yang akan di-cache saat install
 const STATIC_ASSETS = [
@@ -13,7 +13,7 @@ const STATIC_ASSETS = [
   '/css/style.css',
   '/css/daftarmobil.css',
   '/css/chat.css',
-  '/js/dashboard.js',
+  '/js/dashboard.js', 
   '/js/chat.js',
   '/img/logo1.png',
   '/img/logo2.png',

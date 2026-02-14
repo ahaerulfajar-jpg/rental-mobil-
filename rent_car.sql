@@ -158,6 +158,22 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `created_at`
 (6, 'herul', 'herul@gmail.com', '$2y$10$4xZcQL2PMM9YVpe/Oe2fYOZWWFukaRxKarZ6oUUU1F7cXCxKfZ3D2', 'admin', '2025-11-05 20:04:57'),
 (8, 'herul', 'qwerty@gmail.com', '$2y$10$2yfNcmV43FHUtI/.zQOPquY3iqA3/gjzKd1h7u7Dk3da8DDtZVr3m', '', '2025-11-14 00:18:48');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mobil_gambar`
+--
+
+CREATE TABLE `mobil_gambar` (
+  `id` int(11) NOT NULL,
+  `mobil_id` int(11) NOT NULL,
+  `kategori` enum('eksterior','interior','mesin','lainnya') DEFAULT 'eksterior',
+  `nama_file` varchar(255) NOT NULL,
+  `keterangan` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `url_gambar` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -194,6 +210,14 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `mobil_gambar`
+--
+ALTER TABLE `mobil_gambar` 
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `mobil_id` (`mobil_id`),
+  ADD CONSTRAINT `mobil_gambar_ibfk_1` FOREIGN KEY (`mobil_id`) REFERENCES `mobil` (`id`) ON DELETE CASCADE;
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -226,6 +250,12 @@ ALTER TABLE `transaksi`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `mobil_gambar`
+--
+ALTER TABLE `mobil_gambar`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

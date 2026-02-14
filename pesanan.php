@@ -43,11 +43,11 @@ $result = $conn->query($query);
     <meta name="apple-mobile-web-app-title" content="Simpati Trans">
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="/manifest.json">
+    <!-- PWA disabled sementara <link rel="manifest" href="/manifest.json?v=5"> -->
     
-    <!-- Favicon and Icons -->
+    <!-- Favicon and Icons --> 
     <link rel="icon" type="image/png" href="img/logo1.png">
-    <link rel="apple-touch-icon" href="img/logo1.png">
+    <link rel="apple-touch-icon" href="img/logo1.png"> 
     
     <link rel="stylesheet" href="css/pesanan.css?v=2.1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">

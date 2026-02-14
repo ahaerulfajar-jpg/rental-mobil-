@@ -1,65 +1,33 @@
 /**
- * PWA Registration and Installation
- * Handles service worker registration and install prompt
+ * PWA - DISABLED sementara
+ * Service worker tidak didaftar, prompt install disembunyikan.
+ * Unregister SW yang sudah ada.
  */
 
-// Register Service Worker
-// DISABLED: Caching PWA dimatikan sementara
+// Jangan daftarkan service worker
+// if ('serviceWorker' in navigator) { ... register ... }
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then((registration) => {
-        console.log('[PWA] Service Worker registered successfully:', registration.scope);
-        
-        // Check for updates
-        registration.addEventListener('updatefound', () => {
-          const newWorker = registration.installing;
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              // New service worker available
-              console.log('[PWA] New service worker available');
-              showUpdateNotification();
-            }
-          });
-        });
-      })
-      .catch((error) => {
-        console.error('[PWA] Service Worker registration failed:', error);
-      });
-  });
-}
-
-
-// Unregister existing service workers
+// Unregister semua service worker yang ada
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.getRegistrations().then((registrations) => {
-      for (let registration of registrations) {
+      registrations.forEach((registration) => {
         registration.unregister().then((success) => {
-          if (success) {
-            console.log('[PWA] Service Worker unregistered - Caching disabled');
-          }
-        });
-      }
+          if (success) console.log('[PWA] Service Worker unregistered (PWA disabled)');
+        }); 
+      });
     });
   });
 }
 
-// Handle Install Prompt
-let deferredPrompt;
+// Jangan tampilkan prompt install (PWA disabled)
+let deferredPrompt = null;
 const installButton = document.getElementById('install-pwa-button');
 
 window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent the mini-infobar from appearing on mobile
   e.preventDefault();
-  // Stash the event so it can be triggered later
-  deferredPrompt = e;
-  // Show install button if exists
-  if (installButton) {
-    installButton.style.display = 'block';
-    installButton.addEventListener('click', installPWA);
-  }
+  deferredPrompt = null;
+  if (installButton) installButton.style.display = 'none';
 });
 
 // Install PWA

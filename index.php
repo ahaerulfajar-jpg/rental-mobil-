@@ -26,12 +26,12 @@ ini_set('display_errors', 1);
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Simpati Trans">
   
-  <!-- PWA Manifest -->
-  <link rel="manifest" href="/manifest.json">
+  <!-- PWA Manifest - disabled sementara
+  <link rel="manifest" href="/manifest.json?v=5"> -->
   
-  <!-- Favicon and Icons -->
+  <!-- Favicon and Icons --> 
   <link rel="icon" type="image/png" href="img/logo1.png">
-  <link rel="apple-touch-icon" href="img/logo1.png">
+  <link rel="apple-touch-icon" href="img/logo1.png"> 
   
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/style.css?v=2.1">

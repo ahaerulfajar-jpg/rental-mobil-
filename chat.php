@@ -29,15 +29,15 @@ if (!isset($_SESSION['user_id'])) {
   <meta name="apple-mobile-web-app-title" content="Simpati Trans">
   
   <!-- PWA Manifest -->
-  <link rel="manifest" href="/manifest.json">
+  <!-- PWA disabled sementara <link rel="manifest" href="/manifest.json?v=5"> -->
   
   <!-- Favicon and Icons -->
   <link rel="icon" type="image/png" href="img/logo1.png">
   <link rel="apple-touch-icon" href="img/logo1.png">
-  
+   
   <!-- CSS untuk Header dan Navbar -->
   <link rel="stylesheet" href="css/daftarmobil.css">
-  <!-- CSS untuk Footer -->
+  <!-- CSS untuk Footer --> 
   <link rel="stylesheet" href="css/style.css">
   <!-- CSS untuk Chat -->
   <link rel="stylesheet" href="css/chat.css">
