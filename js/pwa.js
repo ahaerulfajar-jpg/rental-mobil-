@@ -5,7 +5,7 @@
 
 // Register Service Worker
 // DISABLED: Caching PWA dimatikan sementara
-/*
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/service-worker.js')
@@ -29,7 +29,7 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
-*/
+
 
 // Unregister existing service workers
 if ('serviceWorker' in navigator) {

@@ -82,7 +82,7 @@ services:
     restart: unless-stopped
     environment:
       - PMA_HOST=db
-      - PMA_PORT=3307
+      - PMA_PORT=3306
       - PMA_USER=root
       - PMA_PASSWORD=rootpassword
       - UPLOAD_LIMIT=300M

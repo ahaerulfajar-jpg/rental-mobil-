@@ -1,0 +1,35 @@
+2026-02-04T15:50:56.357895 Project directory: /docker/rental
+2026-02-04T15:50:56.358170 Pulling project images
+2026-02-04T15:50:56.358789 ------------------------------
+2026-02-04T15:50:56.526946  web Skipped No image to be pulled
+2026-02-04T15:50:56.527001  Image phpmyadmin/phpmyadmin:latest Pulling 
+2026-02-04T15:50:56.527016  Image mysql:8.0 Pulling 
+2026-02-04T15:50:56.527024  Image n8nio/n8n:latest Pulling 
+2026-02-04T15:50:58.701387  Image phpmyadmin/phpmyadmin:latest Pulled 
+2026-02-04T15:50:59.230823  Image n8nio/n8n:latest Pulled 
+2026-02-04T15:50:59.471965  Image mysql:8.0 Pulled 
+2026-02-04T15:50:59.509434 ------------------------------
+2026-02-04T15:50:59.509552 Deploying project
+2026-02-04T15:50:59.510173 ------------------------------
+2026-02-04T15:50:59.675536  Container rental-mobil-db Recreate 
+2026-02-04T15:50:59.675864  Container rental-mobil-n8n Recreate 
+2026-02-04T15:51:00.332279  Container rental-mobil-n8n Recreated 
+2026-02-04T15:51:00.587436  Container rental-mobil-db Recreated 
+2026-02-04T15:51:00.587502  Container rental-mobil Recreate 
+2026-02-04T15:51:00.588317  Container rental-mobil-phpmyadmin Recreate 
+2026-02-04T15:51:01.965758  Container rental-mobil-phpmyadmin Recreated 
+2026-02-04T15:51:02.043678  Container rental-mobil Recreated 
+2026-02-04T15:51:02.075375  Container rental-mobil-n8n Starting 
+2026-02-04T15:51:02.075433  Container rental-mobil-db Starting 
+2026-02-04T15:51:02.460883  Container rental-mobil-n8n Started 
+2026-02-04T15:51:02.524396  Container rental-mobil-db Started 
+2026-02-04T15:51:02.524456  Container rental-mobil-db Waiting 
+2026-02-04T15:51:02.524466  Container rental-mobil-db Waiting 
+2026-02-04T15:51:13.025986  Container rental-mobil-db Healthy 
+2026-02-04T15:51:13.026078  Container rental-mobil-phpmyadmin Starting 
+2026-02-04T15:51:13.027548  Container rental-mobil-db Healthy 
+2026-02-04T15:51:13.027589  Container rental-mobil Starting 
+2026-02-04T15:51:13.574222  Container rental-mobil-phpmyadmin Started 
+2026-02-04T15:51:13.736500  Container rental-mobil Started 
+2026-02-04T15:51:13.754625 ------------------------------
+2026-02-04T15:51:13.754675 Project deployed successfully
