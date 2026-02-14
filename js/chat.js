@@ -204,6 +204,8 @@ class ChatManager {
         // For bot messages, check if content is HTML and render accordingly
         if (type === 'bot' && this.isHtml(text)) {
             contentDiv.innerHTML = text;
+            // Pastikan gambar di dalam pesan bisa dimuat (cross-origin, dll.)
+            this.ensureChatImagesLoad(contentDiv);
         } else {
             contentDiv.textContent = text;
         }
@@ -226,6 +228,31 @@ class ChatManager {
         if (typeof str !== 'string') return false;
         const htmlRegex = /<[a-z][\s\S]*>/i;
         return htmlRegex.test(str);
+    }
+
+    /**
+     * Pastikan gambar di  konten chat bisa dimuat.
+     * Perbaiki src jika ada escape yang salah, set referrerPolicy agar gambar eksternal tidak diblokir.
+     */
+    ensureChatImagesLoad(container) {
+        if (!container) return;
+        const imgs = container.querySelectorAll('img');
+        imgs.forEach((img) => {
+            let src = img.getAttribute('src');
+            if (!src) return;
+            // Perbaiki src jika ada backslash sebelum quote (double-escape dari JSON)
+            if (src.indexOf('\\') !== -1) {
+                src = src.replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+                img.setAttribute('src', src);
+            }
+            img.setAttribute('referrerPolicy', 'no-referrer');
+            img.setAttribute('loading', 'lazy');
+            img.onerror = function () {
+                this.style.maxWidth = '100%';
+                this.alt = this.alt || 'Gambar tidak dapat dimuat';
+                this.title = 'Gambar tidak dapat dimuat. Periksa URL atau kebijakan gambar (CSP).';
+            };
+        });
     }
 
     showLoading() {

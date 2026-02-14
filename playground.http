@@ -1,11 +1,11 @@
-POST http://localhost:5678/webhook-test/chat
+POST https://n8n.rental.sipatokaan.com/webhook-test/chat
 # POST http://localhost:5678/webhook/chat
 # POST http://n8n:5678/webhook/chat
 Accept: application/json
 Content-Type: application/json
 
 {
-    "message": "kalau supir ada tidak yang tersedia ?",
-    "username": "Test User",
+    "message": "tampilkan gambar brio yang kamu miliki",
+    "username": " Test User",
     "user_id": "1"
 }
