@@ -23,13 +23,30 @@ if (isset($_POST['simpan_sopir'])) {
     $harga  = $_POST['harga_per_hari'];
     $tanggal = $_POST['tanggal_bergabung'];
 
-    // Upload foto
-    $foto = null;
-    if (!empty($_FILES['foto']['name'])) {
-        $foto = time() . '_' . $_FILES['foto']['name'];
-        move_uploaded_file($_FILES['foto']['tmp_name'], "../img/" . $foto);
-    }
+    // Upload foto (aman & tervalidasi)
+    $uploadDir = realpath(__DIR__ . '/../img');
+    if ($uploadDir === false) { $uploadDir = __DIR__ . '/../img'; }
+    if (!is_dir($uploadDir)) { @mkdir($uploadDir, 0755, true); }
 
+    $allowed_ext = ['jpg','jpeg','png','gif','webp'];
+    $allowed_mime = ['image/jpeg','image/png','image/gif','image/webp'];
+    $max_size = 5 * 1024 * 1024; // 5MB
+
+    $foto = null;
+    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+        $ext = strtolower(pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION));
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $mime = $finfo->file($_FILES['foto']['tmp_name']);
+        if (in_array($ext, $allowed_ext) && in_array($mime, $allowed_mime) && $_FILES['foto']['size'] <= $max_size) {
+            $nama_file = time() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '_', basename($_FILES['foto']['name']));
+            if (!pathinfo($nama_file, PATHINFO_EXTENSION)) { $nama_file .= '.' . $ext; }
+            $dest = $uploadDir . DIRECTORY_SEPARATOR . $nama_file;
+            if (@move_uploaded_file($_FILES['foto']['tmp_name'], $dest)) {
+                $foto = $nama_file; // simpan nama file relatif dari folder img
+            }
+        }
+    }
+ 
     $query = "
         INSERT INTO sopir 
         (nama, telepon, email, alamat, status, harga_per_hari, tanggal_bergabung, foto)
@@ -61,12 +78,28 @@ if (isset($_POST['update_sopir'])) {
     $data = mysqli_fetch_assoc(mysqli_query($conn, "SELECT foto FROM sopir WHERE id='$id'"));
     $foto_lama = $data['foto'];
 
-    // Upload foto baru (jika ada)
-    if (!empty($_FILES['foto']['name'])) {
-        $foto_baru = time() . '_' . $_FILES['foto']['name'];
-        move_uploaded_file($_FILES['foto']['tmp_name'], "../img/" . $foto_baru);
-    } else {
-        $foto_baru = $foto_lama;
+    // Upload foto baru (aman & tervalidasi)
+    $uploadDir = realpath(__DIR__ . '/../img');
+    if ($uploadDir === false) { $uploadDir = __DIR__ . '/../img'; }
+    if (!is_dir($uploadDir)) { @mkdir($uploadDir, 0755, true); }
+
+    $foto_baru = $foto_lama;
+    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+        $allowed_ext = ['jpg','jpeg','png','gif','webp'];
+        $allowed_mime = ['image/jpeg','image/png','image/gif','image/webp'];
+        $max_size = 5 * 1024 * 1024; // 5MB
+
+        $ext = strtolower(pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION));
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $mime = $finfo->file($_FILES['foto']['tmp_name']);
+        if (in_array($ext, $allowed_ext) && in_array($mime, $allowed_mime) && $_FILES['foto']['size'] <= $max_size) {
+            $nama_file = time() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '_', basename($_FILES['foto']['name']));
+            if (!pathinfo($nama_file, PATHINFO_EXTENSION)) { $nama_file .= '.' . $ext; }
+            $dest = $uploadDir . DIRECTORY_SEPARATOR . $nama_file;
+            if (@move_uploaded_file($_FILES['foto']['tmp_name'], $dest)) {
+                $foto_baru = $nama_file; // simpan nama file relatif dari folder img
+            }
+        }
     }
 
     $query = "
