@@ -586,21 +586,6 @@ if (isset($_SESSION['pelanggan'])) {
         <p><i class="fa-solid fa-envelope"></i> Email : simpatitransmks03@gmail.com</p>
       </div>
   
-      <!-- Kolom 4: Pos Terbaru -->
-      <div class="footer-col">
-        <h3>Pos Terbaru</h3>
-        <div class="line"></div>
-        <div class="post-item">
-          <img src="img/mobil1.jpg" alt="Post 1">
-          <a href="#">Rental Mobil Makassar Armada Terlengkap | Harga Murah 2025</a>
-        </div>
-        <div class="post-item">
-          <img src="img/mobil2.jpg" alt="Post 2">
-          <a href="#">Sewa Mobil Lepas Kunci Makassar | Harga Murah 2025</a>
-        </div>
-      </div>
-    </div>
-  
     <div class="footer-bottom">
       <p>©2024. CV Simpati Trans. All Rights Reserved.</p>
     </div>
