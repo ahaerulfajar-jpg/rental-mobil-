@@ -200,12 +200,16 @@ class ChatManager {
 
         const contentDiv = document.createElement('div');
         contentDiv.className = 'chat-message-content';
-        
+
+        // Decode HTML entities (API/n8n kadang mengirim &lt; &quot; dll.)
+        const decoded = type === 'bot' ? this.decodeHtmlEntities(String(text)) : String(text);
+
         // For bot messages, check if content is HTML and render accordingly
-        if (type === 'bot' && this.isHtml(text)) {
-            contentDiv.innerHTML = text;
+        if (type === 'bot' && this.isHtml(decoded)) {
+            contentDiv.innerHTML = decoded;
+            this.ensureChatImagesLoad(contentDiv);
         } else {
-            contentDiv.textContent = text;
+            contentDiv.textContent = decoded;
         }
 
         const timeDiv = document.createElement('div');
@@ -221,11 +225,43 @@ class ChatManager {
         this.scrollToBottom();
     }
 
+    decodeHtmlEntities(str) {
+        if (typeof str !== 'string') return str;
+        const el = document.createElement('textarea');
+        el.innerHTML = str;
+        return el.value;
+    }
+
     isHtml(str) {
-        // Check if string contains HTML tags
         if (typeof str !== 'string') return false;
-        const htmlRegex = /<[a-z][\s\S]*>/i;
-        return htmlRegex.test(str);
+        return /<[a-z][\s\S]*>/i.test(str);
+    }
+
+    /**
+     * Pastikan gambar di konten chat bisa dimuat.
+     * Perbaiki src (escape, entity), set referrerPolicy, paksa reload.
+     */
+    ensureChatImagesLoad(container) {
+        if (!container) return;
+        const imgs = container.querySelectorAll('img');
+        imgs.forEach((img) => {
+            let src = img.getAttribute('src') || img.src || '';
+            if (!src) return;
+            // Perbaiki backslash (double-escape JSON)
+            src = src.replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+            // Perbaiki HTML entity di URL
+            src = src.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+            src = src.trim();
+            if (!src) return;
+            img.setAttribute('referrerPolicy', 'no-referrer');
+            img.setAttribute('loading', 'lazy');
+            img.removeAttribute('crossOrigin');
+            img.src = src;
+            img.onerror = function () {
+                this.alt = this.alt || 'Gambar tidak dapat dimuat';
+                this.title = 'Gambar tidak dapat dimuat. Periksa URL atau kebijakan (CSP).';
+            };
+        });
     }
 
     showLoading() {

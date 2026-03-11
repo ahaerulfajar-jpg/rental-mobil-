@@ -27,6 +27,7 @@ ini_set('display_errors', 1);
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Simpati Trans">
   
+
    <!-- PWA -->
   <link rel="manifest" href="/pwa/manifest.json">
   <meta name="theme-color" content="#131dac">
@@ -34,9 +35,9 @@ ini_set('display_errors', 1);
   <script src="/pwa/sw-register.js"></script>
   <script src="/pwa/install.js"></script>
   
-  <!-- Favicon and Icons -->
+  <!-- Favicon and Icons --> 
   <link rel="icon" type="image/png" href="img/logo1.png">
-  <link rel="apple-touch-icon" href="img/logo1.png">
+  <link rel="apple-touch-icon" href="img/logo1.png"> 
   
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/style.css?v=2.1">

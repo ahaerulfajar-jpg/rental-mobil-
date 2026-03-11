@@ -284,6 +284,27 @@
     list-style-type: square;
 }
 
+/* Gambar di dalam pesan bot - tampilkan dan responsif */
+.chat-message.bot .chat-message-content img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 10px 0; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: #f3f4f6;
+}
+
+.chat-message.bot .chat-message-content ul li img {
+    margin: 8px 0;
+}
+
+.chat-message.bot .chat-message-content hr {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 16px 0;
+}
+
 .chat-message-time {
     font-size: 11px;
     color: #9ca3af;

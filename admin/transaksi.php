@@ -56,10 +56,11 @@ if ($result === false) {
         <img src="../img/logo2.png" alt="Logo Simpati Trans">
     </div>
 </div>
-          <ul class="menu">
+          <ul class="menu"> 
           <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
             <li><a href="index.php"><i class="fa-solid fa-house"></i> Dashboard</a></li>
             <li><a href="datamobil.php"><i class="fa-solid fa-car"></i> Daftar Mobil</a></li>
+            <li><a href="galeri_mobil.php"><i class="fa-solid fa-images"></i> Galeri Mobil</a></li>
             <li class="active"><a href="transaksi.php"><i class="fa-solid fa-handshake"></i> Transaksi</a></li>
             <li><a href="sopir.php"><i class="fa-solid fa-id-card"></i> Sopir</a></li>
             <li><a href="riwayat.php"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Transaksi</a></li>

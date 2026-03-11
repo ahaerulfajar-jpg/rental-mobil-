@@ -11,9 +11,36 @@ $result = $conn->query("SELECT * FROM mobil ORDER BY id DESC");
 
 if (isset($_POST['submit'])) {
 
-    $gambar = $_FILES['gambar_mobil']['name'];
-    $tmp = $_FILES['gambar_mobil']['tmp_name'];
-    move_uploaded_file($tmp, "../img/" . $gambar);
+    // Siapkan direktori upload
+    $uploadDir = realpath(__DIR__ . '/../img');
+    if ($uploadDir === false) {
+        $uploadDir = __DIR__ . '/../img';
+    }
+    if (!is_dir($uploadDir)) {
+        @mkdir($uploadDir, 0755, true);
+    }
+
+    // Validasi file gambar
+    $allowed_ext = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+    $allowed_mime = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    $max_size = 5 * 1024 * 1024; // 5MB
+
+    $gambar = '';
+    if (isset($_FILES['gambar_mobil']) && $_FILES['gambar_mobil']['error'] === UPLOAD_ERR_OK) {
+        $ext = strtolower(pathinfo($_FILES['gambar_mobil']['name'], PATHINFO_EXTENSION));
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $mime = $finfo->file($_FILES['gambar_mobil']['tmp_name']);
+        if (in_array($ext, $allowed_ext) && in_array($mime, $allowed_mime) && $_FILES['gambar_mobil']['size'] <= $max_size) {
+            $nama_file = time() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '_', basename($_FILES['gambar_mobil']['name']));
+            if (!pathinfo($nama_file, PATHINFO_EXTENSION)) {
+                $nama_file .= '.' . $ext;
+            }
+            $dest = $uploadDir . DIRECTORY_SEPARATOR . $nama_file;
+            if (@move_uploaded_file($_FILES['gambar_mobil']['tmp_name'], $dest)) {
+                $gambar = $nama_file; // simpan nama file relatif dari folder img
+            }
+        }
+    }
 
     $query = "INSERT INTO mobil 
     (nama_mobil, tipe_mobil, tahun, kapasitas, transmisi, bahan_bakar, harga_sewa_per_hari, status, gambar_mobil)
@@ -26,7 +53,7 @@ if (isset($_POST['submit'])) {
       '{$_POST['bahan_bakar']}',
       '{$_POST['harga']}',
       '{$_POST['status']}',
-      '$gambar'
+      '" . $conn->real_escape_string($gambar) . "'
     )";
 
     mysqli_query($conn, $query);
@@ -38,12 +65,38 @@ if (isset($_POST['update'])) {
 
     $id = $_POST['id'];
 
-    if ($_FILES['gambar_mobil']['name'] != "") {
-        $gambar = $_FILES['gambar_mobil']['name'];
-        move_uploaded_file($_FILES['gambar_mobil']['tmp_name'], "../img/".$gambar);
-    } else {
-        $gambar = $conn->query("SELECT gambar_mobil FROM mobil WHERE id='$id'")
-                       ->fetch_assoc()['gambar_mobil'];
+    // Siapkan direktori upload
+    $uploadDir = realpath(__DIR__ . '/../img');
+    if ($uploadDir === false) {
+        $uploadDir = __DIR__ . '/../img';
+    }
+    if (!is_dir($uploadDir)) {
+        @mkdir($uploadDir, 0755, true);
+    }
+
+    // Default: gunakan gambar lama jika tidak ada file baru
+    $gambar = $conn->query("SELECT gambar_mobil FROM mobil WHERE id='$id'")
+                   ->fetch_assoc()['gambar_mobil'];
+
+    // Jika ada upload baru, validasi dan simpan
+    if (isset($_FILES['gambar_mobil']) && $_FILES['gambar_mobil']['error'] === UPLOAD_ERR_OK) {
+        $allowed_ext = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        $allowed_mime = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        $max_size = 5 * 1024 * 1024; // 5MB
+
+        $ext = strtolower(pathinfo($_FILES['gambar_mobil']['name'], PATHINFO_EXTENSION));
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $mime = $finfo->file($_FILES['gambar_mobil']['tmp_name']);
+        if (in_array($ext, $allowed_ext) && in_array($mime, $allowed_mime) && $_FILES['gambar_mobil']['size'] <= $max_size) {
+            $nama_file = time() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '_', basename($_FILES['gambar_mobil']['name']));
+            if (!pathinfo($nama_file, PATHINFO_EXTENSION)) {
+                $nama_file .= '.' . $ext;
+            }
+            $dest = $uploadDir . DIRECTORY_SEPARATOR . $nama_file;
+            if (@move_uploaded_file($_FILES['gambar_mobil']['tmp_name'], $dest)) {
+                $gambar = $nama_file; // simpan nama file relatif dari folder img
+            }
+        }
     }
 
     $conn->query("UPDATE mobil SET
@@ -85,11 +138,12 @@ if (isset($_POST['update'])) {
         <img src="../img/logo2.png" alt="Logo Simpati Trans">
     </div>
 </div>
-
+ 
 <ul class="menu">
           <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
             <li><a href="index.php"><i class="fa-solid fa-house"></i> Dashboard</a></li>
             <li class="active"><a href="datamobil.php"><i class="fa-solid fa-car"></i> Daftar Mobil</a></li>
+            <li><a href="galeri_mobil.php"><i class="fa-solid fa-images"></i> Galeri Mobil</a></li>
             <li><a href="transaksi.php"><i class="fa-solid fa-handshake"></i> Transaksi</a></li>
             <li><a href="sopir.php"><i class="fa-solid fa-id-card"></i> Sopir</a></li>
             <li><a href="riwayat.php"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Transaksi</a></li>
