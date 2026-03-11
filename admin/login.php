@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('../app/config/database.php');
+header_remove("X-Powered-By");
 
 // Jika sudah login
 if (isset($_SESSION['role'])) {
