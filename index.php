@@ -29,7 +29,7 @@ ini_set('display_errors', 1);
   
    <!-- PWA -->
   <link rel="manifest" href="/pwa/manifest.json">
-  <meta name="theme-color" content="#146c43">
+  <meta name="theme-color" content="#131dac">
   <link rel="apple-touch-icon" href="/img/icon-192.png">
   <script src="/pwa/sw-register.js"></script>
   <script src="/pwa/install.js"></script>
@@ -546,7 +546,7 @@ if (isset($_SESSION['pelanggan'])) {
 
     <span class="pwa-close" id="closePWA">&times;</span>
 
-    <h3>Install CELEBESCODE</h3>
+    <h3>Install Simpati Trans APP</h3>
 
     <p>Dapatkan pengalaman lebih baik dengan menginstal aplikasi ini.</p>
 
