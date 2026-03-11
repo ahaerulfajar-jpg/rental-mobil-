@@ -1137,7 +1137,7 @@ body.with-hidden-topbar .main-content {
 
 .hero-image img {
   width: 100%;
-  max-width: 850px;
+  max-width: 190px;
   transform: translateX(40px); /* geser sedikit ke kanan */
   height: auto;
   margin-left: 0;

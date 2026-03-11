@@ -607,7 +607,7 @@ if (isset($_SESSION['pelanggan'])) {
   </footer>
 
   <script src="js/dashboard.js" defer></script>
-  <script src="js/pwa.js"></script>
+  <!--<script src="js/pwa.js"></script> -->
   
   <?php include 'includes/chat_button.php'; ?>
 </body>
