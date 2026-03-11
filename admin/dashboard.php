@@ -1,5 +1,7 @@
 <?php
 session_start();
+header_remove("X-Powered-By");
+
 include('../app/config/database.php');
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'pemilik') {
     header("Location: login.php");

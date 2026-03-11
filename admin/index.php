@@ -1,6 +1,7 @@
 <?php
 session_start(); // Pastikan session dimulai
 include('../app/config/database.php');
+header_remove("X-Powered-By");
 
 /* ================= STATISTIK ================= */
 

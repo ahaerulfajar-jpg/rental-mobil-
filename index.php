@@ -1,5 +1,6 @@
 <?php
 session_start();
+header_remove("X-Powered-By");
 include('app/config/database.php');
 $result = $conn->query("SELECT * FROM mobil ORDER BY id DESC LIMIT 8");
 
@@ -26,8 +27,13 @@ ini_set('display_errors', 1);
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Simpati Trans">
   
-  <!-- PWA Manifest - disabled sementara
-  <link rel="manifest" href="/manifest.json?v=5"> -->
+
+   <!-- PWA -->
+  <link rel="manifest" href="/pwa/manifest.json">
+  <meta name="theme-color" content="#131dac">
+  <link rel="apple-touch-icon" href="/img/icon-192.png">
+  <script src="/pwa/sw-register.js"></script>
+  <script src="/pwa/install.js"></script>
   
   <!-- Favicon and Icons --> 
   <link rel="icon" type="image/png" href="img/logo1.png">
@@ -534,6 +540,23 @@ if (isset($_SESSION['pelanggan'])) {
         </div>
       </section>
 
+      <!-- PWA -->
+<div id="installPWA" class="pwa-install">
+
+  <div class="pwa-card">
+
+    <span class="pwa-close" id="closePWA">&times;</span>
+
+    <h3>Install Simpati Trans APP</h3>
+
+    <p>Dapatkan pengalaman lebih baik dengan menginstal aplikasi ini.</p>
+
+    <button id="installBtn">Install Sekarang</button>
+
+  </div>
+
+</div>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-container">
@@ -564,28 +587,13 @@ if (isset($_SESSION['pelanggan'])) {
         <p><i class="fa-solid fa-envelope"></i> Email : simpatitransmks03@gmail.com</p>
       </div>
   
-      <!-- Kolom 4: Pos Terbaru -->
-      <div class="footer-col">
-        <h3>Pos Terbaru</h3>
-        <div class="line"></div>
-        <div class="post-item">
-          <img src="img/mobil1.jpg" alt="Post 1">
-          <a href="#">Rental Mobil Makassar Armada Terlengkap | Harga Murah 2025</a>
-        </div>
-        <div class="post-item">
-          <img src="img/mobil2.jpg" alt="Post 2">
-          <a href="#">Sewa Mobil Lepas Kunci Makassar | Harga Murah 2025</a>
-        </div>
-      </div>
-    </div>
-  
     <div class="footer-bottom">
       <p>©2024. CV Simpati Trans. All Rights Reserved.</p>
     </div>
   </footer>
 
   <script src="js/dashboard.js" defer></script>
-  <script src="js/pwa.js"></script>
+  <!--<script src="js/pwa.js"></script> -->
   
   <?php include 'includes/chat_button.php'; ?>
 </body>
